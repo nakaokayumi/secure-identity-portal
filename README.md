@@ -24,7 +24,6 @@ This application is structured for easy containerization. Future deployment plan
 
 ## 🖥️ Preview
 <img width="927" height="279" alt="Screenshot 2026-02-15 075340" src="https://github.com/user-attachments/assets/3678eb84-5e5c-4f63-a5c7-13c496a5b1bd" />
-### 🔍 Security Audit Logging in Action
 
 **Technical Analysis of Audit Trail:**
 - **Traceability:** The system captures a chronological record of all critical user actions (Registration, Authentication, Profile Modification, and Account Deletion).
