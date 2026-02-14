@@ -23,4 +23,11 @@ This application is structured for easy containerization. Future deployment plan
 - **Database:** Migrating from local SQLite to AWS RDS for production-grade scalability.
 
 ## 🖥️ Preview
-*(Insert a screenshot of your beautiful Red & Black dashboard here!)*
+<img width="927" height="279" alt="Screenshot 2026-02-15 075340" src="https://github.com/user-attachments/assets/3678eb84-5e5c-4f63-a5c7-13c496a5b1bd" />
+### 🔍 Security Audit Logging in Action
+![Security Audit Logs](image_9c627f.png)
+
+**Technical Analysis of Audit Trail:**
+- **Traceability:** The system captures a chronological record of all critical user actions (Registration, Authentication, Profile Modification, and Account Deletion).
+- **Incident Response Readiness:** Each log entry includes the actor's **Email** and **IP Address** (`127.0.0.1` during local testing), providing the forensic data necessary to investigate unauthorized access attempts.
+- **PDPA Compliance:** The final log entry (`ACCOUNT_DELETED`) confirms the execution of a "Right to Erasure" request, documenting the exact moment a user exercised their data privacy rights.
