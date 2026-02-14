@@ -1,0 +1,22 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=1.6">
+<div class="container">
+    <div class="card">
+        <h1>SECURE LOGIN</h1>
+        <span class="sub">Enter your credentials to access the portal</span>
+        
+        <form action="/login" method="POST">
+            <label>Email Address</label>
+            <input type="email" name="email" class="input" placeholder="name@company.com" required>
+
+            <label>Password</label>
+            <input type="password" name="password" class="input" placeholder="••••••••" required>
+
+            <button type="submit" class="btn-primary">Sign In</button>
+        </form>
+
+        <div class="footer-links" style="margin-top: 25px;">
+            <p><a href="{{ url_for('register') }}">Need an account? Create Profile</a></p>
+            <p><a href="{{ url_for('forgot_password') }}" style="opacity: 0.7; font-size: 13px;">Forgot Password?</a></p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,188 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg: #050508;
+  --panel: rgba(255, 255, 255, 0.05);
+  --border: rgba(239, 68, 68, 0.2);
+  --text: #f7f7fb;
+  --muted: #b7b7c9;
+  --red: #ef4444;
+  --red-glow: rgba(239, 68, 68, 0.3);
+  --radius: 16px;
+}
+
+* { box-sizing: border-box; }
+
+/* Change body to stack elements vertically */
+body {
+    margin: 0;
+    background-color: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column; /* Stack nav then container */
+    align-items: center;
+}
+
+/* Ensure the container centers the card properly */
+.container {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    justify-content: center;
+}
+
+.card {
+  background: var(--panel);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 40px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+h1 { color: #fff; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; }
+.sub { color: var(--muted); font-size: 14px; margin-bottom: 30px; display: block; }
+
+.input {
+  width: 100%;
+  padding: 14px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: white;
+  margin-bottom: 20px;
+  outline: none;
+  transition: 0.3s;
+}
+
+.input:focus { border-color: var(--red); box-shadow: 0 0 15px var(--red-glow); }
+
+.btn-primary {
+  width: 100%;
+  padding: 14px;
+  background: var(--red);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: 0.3s;
+}
+
+.btn-primary:hover { filter: brightness(1.2); transform: translateY(-2px); }
+
+/* Table styling for dashboard */
+.table-container { margin-top: 20px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th { background: rgba(239, 68, 68, 0.1); padding: 12px; text-align: left; color: var(--red); }
+td { padding: 12px; border-bottom: 1px solid var(--border); }
+
+/* Fix the navigation so it doesn't float over the card */
+.nav {
+    width: 100%;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: flex-end; /* Push links to the right */
+    align-items: center;
+    background: rgba(0, 0, 0, 0.2); /* Subtle bar look */
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 40px; /* Space between nav and card */
+}
+
+.pill {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--red);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    border: 1px solid var(--border);
+    font-weight: 600;
+}
+
+.footer-links p {
+    margin: 10px 0;
+}
+
+.footer-links a {
+    color: var(--red);
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s ease;
+}
+
+.footer-links a:hover {
+    text-shadow: 0 0 8px rgba(239, 68, 68, 0.6);
+    text-decoration: underline;
+}
+
+.footer-links {
+    text-align: center;
+}
+
+.footer-links a {
+    color: var(--red);
+    text-decoration: none;
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.footer-links a:hover {
+    opacity: 1;
+    text-decoration: underline;
+}
+
+/* Add this to make buttons look clickable */
+.btn-primary:hover {
+    cursor: pointer;
+    background: #dc2626; /* Darker red on hover */
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
+}
+
+.btn-primary {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary:hover {
+    background: #ff3333;
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.6);
+    transform: translateY(-2px);
+}
+
+.btn-primary:active {
+    transform: translateY(1px);
+    box-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
+}
+
+.pill {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.pill::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    background: #10b981;
+    border-radius: 50%;
+    margin-right: 8px;
+    box-shadow: 0 0 10px #10b981;
+    animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0.3; }
+    100% { opacity: 1; }
+}

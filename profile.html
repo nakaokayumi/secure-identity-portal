@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profile - Secure Portal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=1.4">
+</head>
+<body class="profile-page">
+    <div class="container">
+        <div class="card">
+            <h1>User Profile</h1>
+            <span class="sub">Verify your account information</span>
+
+            <div class="profile-info" style="text-align: left;">
+                <label>Display Name</label>
+                <div class="input" style="background: rgba(255,255,255,0.02); margin-bottom: 20px;">
+                    {{ user['name'] }}
+                </div>
+
+                <label>Email Address</label>
+                <div class="input" style="background: rgba(255,255,255,0.02); margin-bottom: 20px;">
+                    {{ user['email'] }}
+                </div>
+
+                <label>Member Since</label>
+                <div class="input" style="background: rgba(255,255,255,0.02);">
+                    {{ user['member_since'] }}
+                </div>
+            </div>
+
+            <hr style="margin: 30px 0;">
+
+            <div class="actions">
+                <a href="{{ url_for('dashboard') }}" class="btn-primary" style="display: block; text-decoration: none; text-align: center; padding: 14px;">Return to Dashboard</a>
+                <p style="margin-top: 20px; text-align: center;">
+                    <a href="{{ url_for('logout') }}" style="color: var(--red); text-decoration: none; font-size: 13px;">Sign Out Securely</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

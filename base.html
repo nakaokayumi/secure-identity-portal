@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title or "Secure Portal" }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"><body>
+  <div class="container">
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo"></div>
+        <div>
+          <h1>Secure Portal</h1>
+          <p>Flask • AWS EC2 • Nginx • HTTPS</p>
+        </div>
+      </div>
+
+      <div class="nav">
+        <a class="pill" href="{{ url_for('privacy') }}">Privacy</a>
+        {% if session.get("user_email") %}
+          <a class="pill" href="{{ url_for('dashboard') }}">Dashboard</a>
+          <a class="pill" href="{{ url_for('logout') }}">Logout</a>
+        {% else %}
+          <a class="pill" href="{{ url_for('login') }}">Login</a>
+          <a class="pill" href="{{ url_for('register') }}">Register</a>
+        {% endif %}
+      </div>
+    </div>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for msg in messages %}
+          <div class="flash">{{ msg }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </div>
+</body>
+</html>
