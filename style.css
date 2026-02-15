@@ -1,172 +1,186 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-  --bg: #050508;
-  --panel: rgba(255, 255, 255, 0.05);
-  --border: rgba(239, 68, 68, 0.2);
+  --bg: #0a0a0f;
+  --panel: rgba(17, 17, 27, 0.8);
+  --border: rgba(239, 68, 68, 0.25);
   --text: #f7f7fb;
-  --muted: #b7b7c9;
+  --muted: #8e8e9f;
   --red: #ef4444;
-  --red-glow: rgba(239, 68, 68, 0.3);
-  --radius: 16px;
+  --red-hover: #ff3333;
+  --red-glow: rgba(239, 68, 68, 0.4);
+  --success: #10b981;
+  --radius: 12px;
+  --font-main: 'Inter', sans-serif;
 }
 
-* { box-sizing: border-box; }
+* { 
+    box-sizing: border-box; 
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
-/* Change body to stack elements vertically */
 body {
     margin: 0;
+    font-family: var(--font-main);
     background-color: var(--bg);
+    background-image: 
+        radial-gradient(circle at 50% 50%, rgba(239, 68, 68, 0.05) 0%, transparent 80%),
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 100% 100%, 30px 30px, 30px 30px;
     color: var(--text);
     min-height: 100vh;
     display: flex;
-    flex-direction: column; /* Stack nav then container */
+    flex-direction: column;
     align-items: center;
 }
 
-/* Ensure the container centers the card properly */
-.container {
-    width: 100%;
-    max-width: 500px;
-    display: flex;
-    justify-content: center;
-}
-
-.card {
-  background: var(--panel);
-  backdrop-filter: blur(12px);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 40px;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-}
-
-h1 { color: #fff; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; }
-.sub { color: var(--muted); font-size: 14px; margin-bottom: 30px; display: block; }
-
-.input {
-  width: 100%;
-  padding: 14px;
-  background: rgba(0, 0, 0, 0.4);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  color: white;
-  margin-bottom: 20px;
-  outline: none;
-  transition: 0.3s;
-}
-
-.input:focus { border-color: var(--red); box-shadow: 0 0 15px var(--red-glow); }
-
-.btn-primary {
-  width: 100%;
-  padding: 14px;
-  background: var(--red);
-  color: white;
-  border: none;
-  border-radius: 10px;
-  font-weight: 700;
-  cursor: pointer;
-  text-transform: uppercase;
-  transition: 0.3s;
-}
-
-.btn-primary:hover { filter: brightness(1.2); transform: translateY(-2px); }
-
-/* Table styling for dashboard */
-.table-container { margin-top: 20px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-th { background: rgba(239, 68, 68, 0.1); padding: 12px; text-align: left; color: var(--red); }
-td { padding: 12px; border-bottom: 1px solid var(--border); }
-
-/* Fix the navigation so it doesn't float over the card */
+/* Navigation Bar */
 .nav {
     width: 100%;
-    padding: 20px 40px;
+    padding: 1rem 10%;
     display: flex;
-    justify-content: flex-end; /* Push links to the right */
+    justify-content: flex-end;
     align-items: center;
-    background: rgba(0, 0, 0, 0.2); /* Subtle bar look */
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border);
-    margin-bottom: 40px; /* Space between nav and card */
+    margin-bottom: 50px;
 }
 
-.pill {
-    background: rgba(239, 68, 68, 0.1);
-    color: var(--red);
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 12px;
+/* Main Container */
+.container {
+    width: 90%;
+    max-width: 550px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+/* Card Aesthetic */
+.card {
+    background: var(--panel);
+    backdrop-filter: blur(16px);
     border: 1px solid var(--border);
-    font-weight: 600;
+    border-radius: var(--radius);
+    padding: 40px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(239, 68, 68, 0.05);
+    width: 100%;
 }
 
-.footer-links p {
-    margin: 10px 0;
+.box { 
+    max-width: 800px; 
+    margin: auto; 
+    text-align: center; 
 }
 
-.footer-links a {
-    color: var(--red);
-    text-decoration: none;
-    font-weight: 500;
-    transition: 0.3s ease;
+/* Typography */
+h1 { 
+    font-weight: 700;
+    color: #fff; 
+    text-transform: uppercase; 
+    letter-spacing: 3px; 
+    margin: 0 0 8px 0;
+    font-size: 1.5rem;
 }
 
-.footer-links a:hover {
-    text-shadow: 0 0 8px rgba(239, 68, 68, 0.6);
-    text-decoration: underline;
+.sub { 
+    color: var(--muted); 
+    font-size: 14px; 
+    margin-bottom: 30px; 
+    display: block; 
+    letter-spacing: 0.5px;
 }
 
-.footer-links {
-    text-align: center;
+/* Inputs */
+.input {
+    width: 100%;
+    padding: 14px 16px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: white;
+    margin-bottom: 20px;
+    outline: none;
+    font-family: var(--font-main);
 }
 
-.footer-links a {
-    color: var(--red);
-    text-decoration: none;
-    font-size: 14px;
-    opacity: 0.8;
+.input:focus { 
+    border-color: var(--red); 
+    box-shadow: 0 0 15px var(--red-glow); 
+    background: rgba(0, 0, 0, 0.8);
 }
 
-.footer-links a:hover {
-    opacity: 1;
-    text-decoration: underline;
-}
-
-/* Add this to make buttons look clickable */
-.btn-primary:hover {
-    cursor: pointer;
-    background: #dc2626; /* Darker red on hover */
-    box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
-}
-
+/* Unified Button Style */
 .btn-primary {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
+    width: 100%;
+    padding: 16px;
+    background: var(--red);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .btn-primary:hover {
-    background: #ff3333;
-    box-shadow: 0 0 20px rgba(239, 68, 68, 0.6);
+    background: var(--red-hover);
+    box-shadow: 0 0 25px var(--red-glow);
     transform: translateY(-2px);
 }
 
 .btn-primary:active {
     transform: translateY(1px);
-    box-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
 }
 
+/* Dashboard Tables */
+.table-container { 
+    margin-top: 25px; 
+    border: 1px solid var(--border); 
+    border-radius: var(--radius); 
+    overflow: hidden; 
+    background: rgba(0,0,0,0.3);
+}
+
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+
+th { 
+    background: rgba(239, 68, 68, 0.15); 
+    padding: 15px; 
+    text-align: left; 
+    color: var(--red); 
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+td { 
+    padding: 12px 15px; 
+    border-bottom: 1px solid rgba(255,255,255,0.05); 
+    color: var(--muted);
+}
+
+tr:hover td {
+    background: rgba(255,255,255,0.02);
+    color: var(--text);
+}
+
+/* Status Pill (Active Scan Effect) */
 .pill {
     display: inline-flex;
     align-items: center;
     background: rgba(16, 185, 129, 0.1);
-    color: #10b981;
+    color: var(--success);
     border: 1px solid rgba(16, 185, 129, 0.3);
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: bold;
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 800;
     text-transform: uppercase;
 }
 
@@ -174,22 +188,42 @@ td { padding: 12px; border-bottom: 1px solid var(--border); }
     content: "";
     width: 8px;
     height: 8px;
-    background: #10b981;
+    background: var(--success);
     border-radius: 50%;
-    margin-right: 8px;
-    box-shadow: 0 0 10px #10b981;
+    margin-right: 10px;
+    box-shadow: 0 0 12px var(--success);
     animation: blink 1.5s infinite;
 }
 
-@keyframes blink {
-    0% { opacity: 1; }
-    50% { opacity: 0.3; }
-    100% { opacity: 1; }
-
+/* Footer & Links */
+.footer-links {
+    text-align: center;
+    margin-top: 20px;
 }
 
-.box { 
-    max-width: 800px; 
-    margin: auto; 
-    text-align: center; /* This centers your text, images, and buttons */
+.footer-links p { margin: 12px 0; font-size: 14px; color: var(--muted); }
+
+.footer-links a {
+    color: var(--red);
+    text-decoration: none;
+    font-weight: 600;
+    padding-bottom: 2px;
+    border-bottom: 1px solid transparent;
+}
+
+.footer-links a:hover {
+    color: var(--red-hover);
+    border-bottom-color: var(--red);
+    text-shadow: 0 0 10px var(--red-glow);
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.9); }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+    .nav { padding: 1rem 5%; }
+    .card { padding: 25px; }
 }
