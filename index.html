@@ -22,7 +22,7 @@
     <div class="box">
         <h1>🛡️ Security Case Study</h1>
         <p style="text-align: center;"><strong>Project:</strong> Secure Identity & Access Management (IAM) Portal</p>
-        <p style="text-align: center;"><strong>Candidate:</strong> [Your Name]</p>
+        <p style="text-align: center;"><strong>Candidate:</strong> [Nakaoka Yumi]</p>
 
         <hr style="border: 0.5px solid #333; margin: 30px 0;">
 
@@ -50,13 +50,46 @@
             </tbody>
         </table>
 
+            <h3>🖥️ Live Portal Demo</h3>
+            <p>Experience the interface of the Secure IAM Portal below:</p>
+            
+            <div style="background: #000; height: 200px; border: 1px solid #333; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+                <label>Username:</label>
+                <input type="text" style="background: #222; border: 1px solid #ff0000; color: white; margin-bottom: 10px;">
+                <label>Password:</label>
+                <input type="password" style="background: #222; border: 1px solid #ff0000; color: white; margin-bottom: 10px;">
+                <button style="background: #ff0000; color: white; border: none; padding: 5px 15px; cursor: not-allowed;">SECURE LOGIN</button>
+                <p style="font-size: 0.7em; color: #888; margin-top: 10px;">(Database connection disabled for public demo)</p>
+            </div>
+        </div>
+
         <h2>🔐 Core Security Features</h2>
         <ul>
             <li><strong style="color: #ff0000;">Password Hashing:</strong> Utilized PBKDF2 with SHA-256 salting for zero plain-text storage.</li>
             <li><strong style="color: #ff0000;">Session Integrity:</strong> Implemented server-side session management to prevent hijacking.</li>
             <li><strong style="color: #ff0000;">Input Validation:</strong> Applied parameterized SQL queries to mitigate SQL Injection.</li>
         </ul>
-
+        <div style="background: #111; border: 2px dashed #ff0000; padding: 25px; margin: 30px 0; border-radius: 8px;">
+            <h3 style="color: #ff0000; text-align: center; margin-top: 0;">🖥️ Live Interface Preview</h3>
+            <p style="text-align: center; font-size: 0.9em; color: #bbb;">(Interactive Demo: Database connectivity disabled for public security)</p>
+            
+            <div style="max-width: 300px; margin: auto; padding: 20px; border: 1px solid #333; background: #000; border-radius: 4px;">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <div style="width: 50px; height: 50px; border: 2px solid #ff0000; border-radius: 50%; display: inline-block; line-height: 50px; color: #ff0000; font-weight: bold;">🔒</div>
+                </div>
+                
+                <label style="display: block; font-size: 0.8em; color: #ff0000; margin-bottom: 5px;">USER IDENTIFIER</label>
+                <input type="text" placeholder="Enter Email" style="width: 100%; background: #111; border: 1px solid #333; color: #fff; padding: 8px; margin-bottom: 15px; box-sizing: border-box;">
+                
+                <label style="display: block; font-size: 0.8em; color: #ff0000; margin-bottom: 5px;">ACCESS KEY</label>
+                <input type="password" placeholder="••••••••" style="width: 100%; background: #111; border: 1px solid #333; color: #fff; padding: 8px; margin-bottom: 20px; box-sizing: border-box;">
+                
+                <button onclick="alert('In the full version, this triggers a PBKDF2 salt-hash verification against the SQLite database.')" 
+                        style="width: 100%; background: #ff0000; color: #fff; border: none; padding: 10px; font-weight: bold; cursor: pointer; text-transform: uppercase;">
+                    Authenticate
+                </button>
+            </div>
+        </div>
         <h2>🔍 Audit Log Verification</h2>
         <div class="screenshot-container">
             <p>Verification of automated event tracking (PDPA compliance testing):</p>
@@ -64,8 +97,9 @@
         </div>
 
         <div style="text-align: center; margin-top: 40px;">
-            <a href="INSERT_YOUR_GITHUB_REPO_URL_HERE" class="btn">VIEW FULL SOURCE CODE ON GITHUB</a>
+            <a href="https://nakaokayumi.github.io/secure-identity-portal/" class="btn">VIEW FULL SOURCE CODE ON GITHUB</a>
         </div>
     </div>
 </body>
 </html>
+
