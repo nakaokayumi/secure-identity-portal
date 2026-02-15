@@ -1,14 +1,32 @@
-# Secure Identity & Access Management (IAM) Portal
-### Built for Cybersecurity Portfolio & PDPA Compliance Demonstration
+<div align="center">
 
-## 🛡️ Project Overview
-This is a full-stack Flask web application designed with a "Security-First" mindset. It handles user lifecycle management—from registration to account deletion—while maintaining a rigorous audit trail and encrypted data storage.
+# 🛡️ SECURITY CASE STUDY
+### Project: Secure Identity & Access Management (IAM) Portal
+**Candidate: Nakaoka Yumi**
+
+---
+
+</div>
+
+<div style="border-right: 4px solid #ef4444; padding: 25px; background-color: #0d0d12; border-radius: 12px; border: 1px solid #2a2a35; border-right: 5px solid #ef4444;">
+
+## 📌 Project Overview
+This project is a full-stack **Secure Identity & Access Management (IAM) Portal** built with a "Security-First" mindset. I acted as the **Lead Security Developer**, focusing on protecting user data through backend logic, automated audit trails, and encrypted storage.
+
+## 🚀 Process & Results
+I utilized **Flask** for the backend and implemented **PBKDF2 password hashing (SHA-256)**. This ensures that even if the database is stolen, user passwords remain unreadable. The result is a functional, secure portal that tracks user logins for compliance auditing and handles the full user lifecycle securely.
+
+</div>
+
+<br>
 
 ## 🛠️ Key Technical Features
-- **Secure Authentication:** Implements salted PBKDF2 password hashing (SHA-256).
-- **Session Security:** Configured with `HTTPOnly` and `SameSite` flags to mitigate XSS and CSRF attacks.
-- **Audit Logging:** Automated tracking of `LOGIN_SUCCESS`, `LOGIN_FAILED`, and `PASSWORD_RESET` events with IP address logging.
-- **Data Privacy (PDPA):** Features a dedicated "Danger Zone" for permanent account deletion, supporting the 'Right to be Forgotten'.
+* **Secure Authentication:** Implements salted PBKDF2 password hashing to prevent plain-text exposure.
+* **Session Security:** Configured with `HTTPOnly` and `SameSite` flags to mitigate XSS and CSRF attacks.
+* **Audit Logging:** Automated tracking of `LOGIN_SUCCESS`, `LOGIN_FAILED`, and `PASSWORD_RESET` events.
+* **Data Privacy (PDPA):** Features a "Danger Zone" for permanent account deletion, supporting the 'Right to be Forgotten'.
+
+<br>
 
 ## 📊 Mapping to Industry Skills
 
@@ -16,17 +34,20 @@ This is a full-stack Flask web application designed with a "Security-First" mind
 | :--- | :--- |
 | **Networking & HTTP** | Managed RESTful routing and stateful sessions via Flask. |
 | **Operating Systems** | Local deployment via Python Virtual Environments (venv). |
-| **Confidentiality** | Zero plain-text password storage; SQL injection prevention via parameterized queries. |
+| **Confidentiality** | SQL injection prevention via parameterized queries and zero plain-text storage. |
 
-## 🚀 Cloud Readiness
-This application is structured for easy containerization. Future deployment plans include:
-- **Hosting:** AWS App Runner or Google Cloud Run.
-- **Database:** Migrating from local SQLite to AWS RDS for production-grade scalability.
+<br>
 
-## 🖥️ Preview
-<img width="927" height="279" alt="Screenshot 2026-02-15 075340" src="https://github.com/user-attachments/assets/3678eb84-5e5c-4f63-a5c7-13c496a5b1bd" />
+## 🖥️ Preview & Technical Analysis
+<img width="100%" alt="Audit Trail Preview" src="https://github.com/user-attachments/assets/3678eb84-5e5c-4f63-a5c7-13c496a5b1bd" />
 
-**Technical Analysis of Audit Trail:**
-- **Traceability:** The system captures a chronological record of all critical user actions (Registration, Authentication, Profile Modification, and Account Deletion).
-- **Incident Response Readiness:** Each log entry includes the actor's **Email** and **IP Address** (`127.0.0.1` during local testing), providing the forensic data necessary to investigate unauthorized access attempts.
-- **PDPA Compliance:** The final log entry (`ACCOUNT_DELETED`) confirms the execution of a "Right to Erasure" request, documenting the exact moment a user exercised their data privacy rights.
+> [!IMPORTANT]
+> **Incident Response Readiness:** The system captures a chronological record of all critical actions. Each log entry includes the actor's **Email** and **IP Address**, providing the forensic data necessary to investigate unauthorized access attempts.
+
+---
+
+<div align="center">
+
+**[🔗 View My Digital Portfolio](https://nakaokayumi.github.io/digital-portfolio/)**
+
+</div>
