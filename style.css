@@ -1,31 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap');
 
+/* --- GLOBAL THEME --- */
 :root {
   --bg: #050508;
   --panel: #0d0d12;
   --border: #2a2a35;
   --text: #ffffff;
-  --muted: #6b7280;
-  --red: #ff4d4d;
-  --red-glow: rgba(255, 77, 77, 0.4);
-  --success: #00ff9d;
-  --radius: 8px; /* Sharper corners look more "tech" */
+  --muted: #8e8e9f;
+  --red: #ef4444; /* Match the red from your Case Study screenshot */
+  --red-glow: rgba(239, 68, 68, 0.3);
+  --success: #10b981;
+  --radius: 12px;
 }
 
-* { 
-  box-sizing: border-box; 
-  margin: 0; 
-  padding: 0; 
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   font-family: 'Inter', sans-serif;
   background-color: var(--bg);
-  /* The "Cyber Grid" */
+  /* Cyber Grid Overlay */
   background-image: 
-    linear-gradient(rgba(255, 77, 77, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 77, 77, 0.03) 1px, transparent 1px);
-  background-size: 40px 40px;
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 30px 30px;
   color: var(--text);
   min-height: 100vh;
   display: flex;
@@ -33,168 +30,158 @@ body {
   align-items: center;
 }
 
-/* --- Navigation Bar --- */
+/* --- NAVIGATION --- */
 .nav {
   width: 100%;
   padding: 20px 10%;
   display: flex;
   justify-content: flex-end;
   background: rgba(0, 0, 0, 0.8);
-  border-bottom: 2px solid var(--border);
-  margin-bottom: 60px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 40px;
 }
 
-/* --- The Card --- */
+/* --- MAIN CONTAINER & BOX --- */
 .container {
   width: 100%;
-  max-width: 500px;
-  padding: 20px;
+  max-width: 800px;
+  padding: 0 20px;
 }
 
+.box { 
+  width: 100%;
+  margin: auto; 
+  text-align: center; 
+}
+
+/* --- THE CARD (Match Case Study Style) --- */
 .card {
   background: var(--panel);
   border: 1px solid var(--border);
-  border-top: 4px solid var(--red); /* Thick red accent line */
+  border-right: 2px solid var(--red); /* Red accent from your screenshot */
   border-radius: var(--radius);
   padding: 40px;
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
   position: relative;
   overflow: hidden;
+  text-align: left; /* Align text left for readability as per your Case Study */
 }
 
-/* Decorative Scanline effect */
+/* --- SCANLINE ANIMATION --- */
 .card::after {
   content: "";
   position: absolute;
-  top: 0; left: 0; right: 0; height: 1px;
+  top: 0; left: 0; right: 0; height: 2px;
   background: var(--red);
   box-shadow: 0 0 15px var(--red);
-  opacity: 0.3;
-  animation: scan 4s linear infinite;
+  opacity: 0.1;
+  animation: scan 6s linear infinite;
 }
 
+/* --- TYPOGRAPHY --- */
 h1 { 
-  font-family: 'JetBrains Mono', monospace; /* Coding font for titles */
-  font-size: 1.5rem;
-  letter-spacing: 2px;
-  margin-bottom: 8px;
-  text-transform: uppercase;
+  color: var(--red); /* Match Red Header */
+  text-transform: uppercase; 
+  letter-spacing: 2px; 
+  margin-bottom: 15px; 
+  font-family: 'JetBrains Mono', monospace;
 }
 
-.sub { 
-  color: var(--muted);
-  font-size: 0.85rem;
-  margin-bottom: 30px;
-  display: block;
-}
+.sub { color: var(--muted); font-size: 14px; margin-bottom: 30px; display: block; }
 
-/* --- Inputs --- */
+strong { color: var(--text); font-weight: 700; }
+
+/* --- INPUTS --- */
 .input {
   width: 100%;
   padding: 14px;
-  background: #16161e;
+  background: rgba(0, 0, 0, 0.5);
   border: 1px solid var(--border);
-  border-radius: 4px;
-  color: #fff;
+  border-radius: 8px;
+  color: white;
   margin-bottom: 20px;
   outline: none;
-  font-family: 'JetBrains Mono', monospace;
-  transition: 0.2s;
+  transition: 0.3s;
 }
 
-.input:focus {
-  border-color: var(--red);
-  box-shadow: 0 0 10px var(--red-glow);
-}
+.input:focus { border-color: var(--red); box-shadow: 0 0 15px var(--red-glow); }
 
-/* --- Buttons --- */
+/* --- BUTTONS --- */
 .btn-primary {
   width: 100%;
   padding: 16px;
   background: var(--red);
-  color: #fff;
+  color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
   cursor: pointer;
-  transition: 0.3s;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
 }
 
 .btn-primary:hover {
-  background: #ff1a1a;
+  filter: brightness(1.2);
+  transform: translateY(-2px);
   box-shadow: 0 0 20px var(--red-glow);
-  transform: translateY(-1px);
 }
 
-/* --- Tables --- */
-.table-container {
-  margin-top: 30px;
-  border: 1px solid var(--border);
-  background: #000;
+/* --- DASHBOARD TABLES --- */
+.table-container { 
+  margin-top: 25px; 
+  border: 1px solid var(--border); 
+  border-radius: 8px; 
+  overflow: hidden; 
 }
 
-table { width: 100%; border-collapse: collapse; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
 
-th {
-  background: #16161e;
-  color: var(--red);
-  padding: 15px;
-  text-align: left;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  border-bottom: 1px solid var(--border);
+th { 
+  background: rgba(239, 68, 68, 0.1); 
+  padding: 12px; 
+  text-align: left; 
+  color: var(--red); 
 }
 
-td {
-  padding: 12px 15px;
-  border-bottom: 1px solid var(--border);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.8rem;
-  color: #d1d1d1;
+td { 
+  padding: 12px; 
+  border-bottom: 1px solid var(--border); 
+  color: var(--muted);
 }
 
-/* --- Success Pill --- */
+/* --- STATUS PILLS --- */
 .pill {
   display: inline-flex;
   align-items: center;
-  background: rgba(0, 255, 157, 0.1);
+  background: rgba(16, 185, 129, 0.1);
   color: var(--success);
-  border: 1px solid var(--success);
-  padding: 4px 12px;
-  border-radius: 2px;
-  font-size: 0.7rem;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 11px;
   font-weight: bold;
 }
 
 .pill::before {
   content: "";
-  width: 6px; height: 6px;
+  width: 8px; height: 8px;
   background: var(--success);
-  margin-right: 8px;
   border-radius: 50%;
-  box-shadow: 0 0 8px var(--success);
+  margin-right: 8px;
+  box-shadow: 0 0 10px var(--success);
   animation: blink 1.5s infinite;
 }
 
-/* --- Link Styling --- */
-.footer-links a {
-  color: var(--red);
-  text-decoration: none;
-  font-size: 0.8rem;
-  transition: 0.3s;
-}
+/* --- FOOTER --- */
+.footer-links { text-align: center; margin-top: 30px; }
+.footer-links a { color: var(--red); text-decoration: none; font-size: 14px; opacity: 0.8; }
+.footer-links a:hover { opacity: 1; text-decoration: underline; }
 
-.footer-links a:hover {
-  text-decoration: underline;
-  text-shadow: 0 0 5px var(--red);
-}
-
-/* --- Animations --- */
+/* --- KEYFRAMES (FIXED SYNTAX) --- */
 @keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.2; }
+  0% { opacity: 1; }
+  50% { opacity: 0.3; }
+  100% { opacity: 1; }
 }
 
 @keyframes scan {
