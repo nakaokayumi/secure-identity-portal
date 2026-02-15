@@ -11,6 +11,7 @@ This is a full-stack Flask web application designed with a "Security-First" mind
 - **Data Privacy (PDPA):** Features a dedicated "Danger Zone" for permanent account deletion, supporting the 'Right to be Forgotten'.
 
 ## 📊 Mapping to Industry Skills
+
 | Skill | Implementation |
 | :--- | :--- |
 | **Networking & HTTP** | Managed RESTful routing and stateful sessions via Flask. |
