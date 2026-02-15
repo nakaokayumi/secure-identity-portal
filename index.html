@@ -22,7 +22,7 @@
     <div class="box">
         <h1>🛡️ Security Case Study</h1>
         <p style="text-align: center;"><strong>Project:</strong> Secure Identity & Access Management (IAM) Portal</p>
-        <p style="text-align: center;"><strong>Candidate:</strong> [Nakaoka Yumi]</p>
+        <p style="text-align: center;"><strong>Candidate:</strong> Nakaoka Yumi</p>
 
         <hr style="border: 0.5px solid #333; margin: 30px 0;">
 
@@ -50,6 +50,34 @@
             </tbody>
         </table>
 
+        <div id="demo-container" style="background: #111; border: 2px dashed #ff0000; padding: 25px; margin: 30px 0; border-radius: 8px;">
+            <h3 style="color: #ff0000; text-align: center; margin-top: 0;">🖥️ Interactive Portal Demo</h3>
+            
+            <div id="login-interface" style="max-width: 300px; margin: auto; padding: 20px; border: 1px solid #333; background: #000; border-radius: 4px;">
+                <p style="font-size: 0.7em; color: #888; text-align: center;">Try email: <b>admin@secure.io</b><br>Pass: <b>password123</b></p>
+                
+                <label style="display: block; font-size: 0.8em; color: #ff0000; margin-top: 10px;">USER IDENTIFIER</label>
+                <input type="text" id="demo-user" placeholder="Enter Email" style="width: 100%; background: #111; border: 1px solid #333; color: #fff; padding: 8px; margin-bottom: 10px; box-sizing: border-box;">
+                
+                <label style="display: block; font-size: 0.8em; color: #ff0000;">ACCESS KEY</label>
+                <input type="password" id="demo-pass" placeholder="••••••••" style="width: 100%; background: #111; border: 1px solid #333; color: #fff; padding: 8px; margin-bottom: 20px; box-sizing: border-box;">
+                
+                <button onclick="runDemo()" style="width: 100%; background: #ff0000; color: #fff; border: none; padding: 10px; font-weight: bold; cursor: pointer; text-transform: uppercase;">Authenticate</button>
+            </div>
+
+            <div id="dashboard-preview" style="display: none; text-align: center; color: #00ff00; padding: 20px;">
+                <div style="font-size: 30px;">🔓</div>
+                <h4 style="margin: 10px 0;">ACCESS GRANTED</h4>
+                <p style="color: #fff; font-size: 0.8em;">User: admin@secure.io | Role: SuperAdmin</p>
+                <div style="background: #222; padding: 10px; border: 1px solid #00ff00; color: #00ff00; font-family: monospace; font-size: 0.7em; text-align: left;">
+                    [SYSTEM LOG]: Session 8421 Started...<br>
+                    [SYSTEM LOG]: PBKDF2 Hash Verified Successfully...<br>
+                    [SYSTEM LOG]: Integrity Check: OK
+                </div>
+                <button onclick="location.reload()" style="margin-top: 15px; background: transparent; border: 1px solid #fff; color: #fff; padding: 5px 10px; cursor: pointer;">Logout</button>
+            </div>
+        </div>
+
         <h2 style="text-align: center;">🔐 Core Security Features</h2>
         <div style="text-align: center;">
             <ul style="list-style: none; padding: 0; display: inline-block; text-align: left;">
@@ -64,27 +92,7 @@
                 </li>
             </ul>
         </div>
-        <div style="background: #111; border: 2px dashed #ff0000; padding: 25px; margin: 30px 0; border-radius: 8px;">
-            <h3 style="color: #ff0000; text-align: center; margin-top: 0;">🖥️ Live Interface Preview</h3>
-            <p style="text-align: center; font-size: 0.9em; color: #bbb;">(Interactive Demo: Database connectivity disabled for public security)</p>
-            
-            <div style="max-width: 300px; margin: auto; padding: 20px; border: 1px solid #333; background: #000; border-radius: 4px;">
-                <div style="text-align: center; margin-bottom: 20px;">
-                    <div style="width: 50px; height: 50px; border: 2px solid #ff0000; border-radius: 50%; display: inline-block; line-height: 50px; color: #ff0000; font-weight: bold;">🔒</div>
-                </div>
-                
-                <label style="display: block; font-size: 0.8em; color: #ff0000; margin-bottom: 5px;">USER IDENTIFIER</label>
-                <input type="text" placeholder="Enter Email" style="width: 100%; background: #111; border: 1px solid #333; color: #fff; padding: 8px; margin-bottom: 15px; box-sizing: border-box;">
-                
-                <label style="display: block; font-size: 0.8em; color: #ff0000; margin-bottom: 5px;">ACCESS KEY</label>
-                <input type="password" placeholder="••••••••" style="width: 100%; background: #111; border: 1px solid #333; color: #fff; padding: 8px; margin-bottom: 20px; box-sizing: border-box;">
-                
-                <button onclick="alert('In the full version, this triggers a PBKDF2 salt-hash verification against the SQLite database.')" 
-                        style="width: 100%; background: #ff0000; color: #fff; border: none; padding: 10px; font-weight: bold; cursor: pointer; text-transform: uppercase;">
-                    Authenticate
-                </button>
-            </div>
-        </div>
+
         <h2>🔍 Audit Log Verification</h2>
         <div class="screenshot-container">
             <p>Verification of automated event tracking (PDPA compliance testing):</p>
@@ -95,8 +103,22 @@
             <a href="https://github.com/nakaokayumi/secure-identity-portal" class="btn">VIEW FULL SOURCE CODE ON GITHUB</a>
         </div>
     </div>
+
+    <script>
+    function runDemo() {
+        const user = document.getElementById('demo-user').value;
+        const pass = document.getElementById('demo-pass').value;
+
+        // Simple validation for interactive demo purposes
+        if(user === "admin@secure.io" && pass === "password123") {
+            document.getElementById('login-interface').style.display = 'none';
+            document.getElementById('dashboard-preview').style.display = 'block';
+        } else {
+            alert("Invalid Credentials. (Hint: See the test login credentials above the fields)");
+        }
+    }
+    </script>
 </body>
 </html>
-
 
 
