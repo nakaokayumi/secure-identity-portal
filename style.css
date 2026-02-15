@@ -185,4 +185,11 @@ td { padding: 12px; border-bottom: 1px solid var(--border); }
     0% { opacity: 1; }
     50% { opacity: 0.3; }
     100% { opacity: 1; }
+
+}
+
+.box { 
+    max-width: 800px; 
+    margin: auto; 
+    text-align: center; /* This centers your text, images, and buttons */
 }
