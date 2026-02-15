@@ -1,26 +1,60 @@
-<div class="card" style="margin-top: 20px;">
-    <h2 style="color: var(--red); border-bottom: 1px solid var(--red); padding-bottom: 10px;">📊 Mapping to Industry Skills</h2>
-    
-    <table style="width:100%; border-collapse: collapse; margin-top: 15px; color: white; text-align: left;">
-        <thead>
-            <tr style="background-color: #333;">
-                <th style="padding: 12px; border: 1px solid #444;">Skill</th>
-                <th style="padding: 12px; border: 1px solid #444;">Implementation</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td style="padding: 12px; border: 1px solid #444;"><strong>Networking & HTTP</strong></td>
-                <td style="padding: 12px; border: 1px solid #444;">Managed RESTful routing and stateful sessions via Flask.</td>
-            </tr>
-            <tr>
-                <td style="padding: 12px; border: 1px solid #444;"><strong>Operating Systems</strong></td>
-                <td style="padding: 12px; border: 1px solid #444;">Local deployment via Python Virtual Environments (venv).</td>
-            </tr>
-            <tr>
-                <td style="padding: 12px; border: 1px solid #444;"><strong>Confidentiality</strong></td>
-                <td style="padding: 12px; border: 1px solid #444;">Zero plain-text password storage; SQL injection prevention via parameterized queries.</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Security Portfolio | IAM Portal</title>
+    <style>
+        body { background-color: #050505; color: #e0e0e0; font-family: 'Segoe UI', Tahoma, sans-serif; padding: 40px; }
+        .container { max-width: 900px; margin: auto; border: 2px solid #ff0000; background: #0f0f0f; padding: 30px; border-radius: 10px; box-shadow: 0 0 20px rgba(255,0,0,0.2); }
+        h1, h2 { color: #ff0000; text-transform: uppercase; border-bottom: 1px solid #333; padding-bottom: 10px; }
+        
+        /* The Table Fix */
+        table { width: 100%; border-collapse: collapse; margin: 25px 0; }
+        th { background-color: #ff0000; color: white; padding: 12px; text-align: left; }
+        td { padding: 12px; border: 1px solid #333; background: #1a1a1a; }
+        
+        .audit-screenshot { width: 100%; border: 1px solid #444; border-radius: 5px; margin-top: 20px; filter: grayscale(20%) contrast(110%); }
+        .status-tag { color: #ff0000; border: 1px solid #ff0000; padding: 2px 8px; font-size: 0.8em; border-radius: 3px; margin-right: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🛡️ Cybersecurity Case Study</h1>
+        <p><strong>Project:</strong> Secure Identity & Access Management Portal</p>
+        <p><span class="status-tag">PYTHON</span> <span class="status-tag">FLASK</span> <span class="status-tag">PDPA COMPLIANT</span></p>
+
+        <h2>📊 Mapping to Industry Skills</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Skill</th>
+                    <th>Implementation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Networking & HTTP</strong></td>
+                    <td>Managed RESTful routing and stateful sessions via Flask.</td>
+                </tr>
+                <tr>
+                    <td><strong>Operating Systems</strong></td>
+                    <td>Local deployment via Python Virtual Environments (venv).</td>
+                </tr>
+                <tr>
+                    <td><strong>Confidentiality</strong></td>
+                    <td>Zero plain-text password storage; SQL injection prevention via parameterized queries.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>🔍 Audit Log Evidence</h2>
+        <p>The following screenshot demonstrates the automated tracking of user lifecycle events, essential for security incident response and auditing.</p>
+        
+        <img src="image_9c627f.png" alt="Audit Log Screenshot" class="audit-screenshot">
+
+        <p style="text-align: center; margin-top: 40px;">
+            <a href="https://github.com" style="color: #ff0000; text-decoration: none; font-weight: bold;">[ VIEW SOURCE CODE ON GITHUB ]</a>
+        </p>
+    </div>
+</body>
+</html>
