@@ -271,6 +271,17 @@ td {
     to { opacity: 1; transform: scale(1); }
 }
 
+#timer-box {
+    text-shadow: 0 0 15px var(--red);
+    animation: pulse-red 1s infinite;
+}
+
+@keyframes pulse-red {
+    0% { opacity: 1; }
+    50% { opacity: 0.6; }
+    100% { opacity: 1; }
+}
+
 
 
 
