@@ -8,54 +8,55 @@
 </head>
 <body class="dashboard-page">
     <div class="nav">
-        <a href="index.html" style="color: var(--text); margin-right: 15px; text-decoration: none;">Project Home</a>
+        <a href="index.html">Project Home</a>
         <span class="pill">Secure Session</span>
     </div>
 
     <div class="container">
-        <div class="card">
-            <h1>Welcome, Admin</h1>
-            <span class="sub">Account Security Dashboard</span>
+        <div class="box">
+            <div class="card">
+                <h1>Welcome, Admin</h1>
+                <span class="sub">Account Security Dashboard</span>
 
-            <p><strong>Email:</strong> admin@secure.io</p>
+                <p style="margin-bottom: 20px;"><strong>Email:</strong> admin@secure.io</p>
 
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Event</th>
-                            <th>IP Address</th>
-                            <th>Timestamp</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>USER_LOGIN</td>
-                            <td>192.168.1.1</td>
-                            <td>2026-02-18 20:04:12</td>
-                        </tr>
-                        <tr>
-                            <td>AUTH_VERIFIED</td>
-                            <td>192.168.1.1</td>
-                            <td>2026-02-18 20:04:10</td>
-                        </tr>
-                        <tr>
-                            <td>PBKDF2_HASH_CHECK</td>
-                            <td>SYSTEM</td>
-                            <td>2026-02-18 20:04:09</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Event</th>
+                                <th>IP Address</th>
+                                <th>Timestamp</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>USER_LOGIN</td>
+                                <td>192.168.1.1</td>
+                                <td>2026-02-18 20:04:12</td>
+                            </tr>
+                            <tr>
+                                <td>AUTH_VERIFIED</td>
+                                <td>192.168.1.1</td>
+                                <td>2026-02-18 20:04:10</td>
+                            </tr>
+                            <tr>
+                                <td>PBKDF2_HASH_CHECK</td>
+                                <td>SYSTEM</td>
+                                <td>2026-02-18 20:04:09</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-            <div style="margin-top: 20px; text-align: center;">
-                <a href="login.html" style="color: var(--red); text-decoration: none; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Logout from Portal</a>
+                <div style="margin-top: 30px; text-align: center;">
+                    <a href="login.html" class="footer-links" style="color: var(--red); text-decoration: none; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-family: 'JetBrains Mono', monospace;">Logout from Portal</a>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-    // 1. Typing Effect for the Header
     const header = document.querySelector('h1');
     const text = header.innerText;
     header.innerText = '';
@@ -65,22 +66,10 @@
         if (i < text.length) {
             header.innerHTML += text.charAt(i);
             i++;
-            setTimeout(typeWriter, 100); // Slightly slower for better cyber effect
+            setTimeout(typeWriter, 100);
         }
     }
-    // Start typing after a brief delay
     window.onload = typeWriter;
-
-    // 2. Auto-Fade for Flash Messages (Kept in case you add alerts later)
-    setTimeout(function() {
-        let alerts = document.querySelectorAll('.flash-message');
-        alerts.forEach(alert => {
-            alert.style.transition = "opacity 0.8s ease, transform 0.8s ease";
-            alert.style.opacity = "0";
-            alert.style.transform = "translateY(-10px)";
-            setTimeout(() => alert.remove(), 800);
-        });
-    }, 3000);
     </script>
 </body>
 </html>
