@@ -232,6 +232,18 @@ td {
   100% { top: 100%; }
 }
 
+/* Specific styling for the recovery flow */
+.recovery-page .card {
+    border-right-color: var(--muted); /* Subtle change to indicate secondary flow */
+}
+
+/* Make sure the success message text is readable */
+#success-message p {
+    color: var(--muted);
+    font-family: 'Inter', sans-serif;
+}
+
+
 
 
 
