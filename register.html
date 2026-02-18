@@ -40,39 +40,42 @@
             </div>
         </div>
     </div>
+       <script>
+        const passwordInput = document.getElementById('password');
+        const strengthBar = document.getElementById('strength-bar');
+        const strengthText = document.getElementById('strength-text');
+
+        passwordInput.addEventListener('input', () => {
+            const val = passwordInput.value;
+            let strength = 0;
+
+            // Logic for strength calculation
+            if (val.length > 5) strength += 25;
+            if (val.length > 8) strength += 25;
+            if (/[A-Z]/.test(val)) strength += 25;
+            if (/[0-9]/.test(val)) strength += 25;
+
+            // Update width
+            strengthBar.style.width = strength + '%';
+
+            // Update color and text based on strength
+            if (strength <= 25) {
+                strengthBar.style.backgroundColor = "#ef4444"; // Red
+                strengthBar.style.boxShadow = "0 0 10px rgba(239, 68, 68, 0.5)";
+                strengthText.innerText = "Security Level: Weak";
+            } else if (strength <= 75) {
+                strengthBar.style.backgroundColor = "#eab308"; // Orange
+                strengthBar.style.boxShadow = "0 0 10px rgba(234, 179, 8, 0.5)";
+                strengthText.innerText = "Security Level: Moderate";
+            } else {
+                strengthBar.style.backgroundColor = "#10b981"; // Green
+                strengthBar.style.boxShadow = "0 0 10px rgba(16, 185, 129, 0.5)";
+                strengthText.innerText = "Security Level: Strong";
+            }
+        });
+    </script>
 </body>
 </html>
 
-const passwordInput = document.getElementById('password');
-const strengthBar = document.getElementById('strength-bar');
-const strengthText = document.getElementById('strength-text');
 
-passwordInput.addEventListener('input', () => {
-    const val = passwordInput.value;
-    let strength = 0;
-
-    // Basic logic for strength
-    if (val.length > 5) strength += 25;
-    if (val.length > 8) strength += 25;
-    if (/[A-Z]/.test(val)) strength += 25;
-    if (/[0-9]/.test(val)) strength += 25;
-
-    // Update width
-    strengthBar.style.width = strength + '%';
-
-    // Update color and text based on strength
-    if (strength <= 25) {
-        strengthBar.style.backgroundColor = "#ef4444"; // Red
-        strengthBar.style.boxShadow = "0 0 10px rgba(239, 68, 68, 0.5)";
-        strengthText.innerText = "Security Level: Weak";
-    } else if (strength <= 75) {
-        strengthBar.style.backgroundColor = "#eab308"; // Yellow/Orange
-        strengthBar.style.boxShadow = "0 0 10px rgba(234, 179, 8, 0.5)";
-        strengthText.innerText = "Security Level: Moderate";
-    } else {
-        strengthBar.style.backgroundColor = "#10b981"; // Green
-        strengthBar.style.boxShadow = "0 0 10px rgba(16, 185, 129, 0.5)";
-        strengthText.innerText = "Security Level: Strong";
-    }
-});
 
