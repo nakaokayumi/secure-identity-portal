@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Terminal | Hangman Protocol</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .game-text { font-family: 'JetBrains Mono', monospace; font-size: 24px; letter-spacing: 5px; margin: 20px 0; color: var(--red); }
+        .hangman-drawing { font-family: 'JetBrains Mono', monospace; white-space: pre; font-size: 18px; line-height: 1.2; margin-bottom: 20px; }
+        .letter-btn { background: var(--panel); border: 1px solid var(--border); color: var(--text); padding: 10px; margin: 5px; cursor: pointer; font-family: 'JetBrains Mono'; width: 40px; }
+        .letter-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+        .letter-btn:hover:not(:disabled) { border-color: var(--red); box-shadow: 0 0 10px var(--red-glow); }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <a href="dashboard.html">Return to Dashboard</a>
+        <span class="pill">Game Mode Active</span>
+    </div>
+
+    <div class="container">
+        <div class="box">
+            <div class="card" style="text-align: center;">
+                <h1>HANGMAN_PROTOCOL</h1>
+                <div id="drawing" class="hangman-drawing"></div>
+                <div id="word-display" class="game-text">_ _ _ _ _</div>
+                <div id="keyboard"></div>
+                <p id="game-status" class="sub" style="margin-top: 20px;">Decrypt the hidden animal name...</p>
+                <button onclick="initGame()" class="btn-primary" style="margin-top: 20px; width: auto; padding: 10px 30px;">Restart System</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const animals = ["BABOON", "FLAMINGO", "LIONESS", "JAGUAR", "CHIMPANZEE", "PANGOLIN"];
+        const drawings = [
+            "  +---+\n  |   |\n      |\n      |\n      |\n      |\n=========",
+            "  +---+\n  |   |\n  O   |\n      |\n      |\n      |\n=========",
+            "  +---+\n  |   |\n  O   |\n  |   |\n      |\n      |\n=========",
+            "  +---+\n  |   |\n  O   |\n /|   |\n      |\n      |\n=========",
+            "  +---+\n  |   |\n  O   |\n /|\\  |\n      |\n      |\n=========",
+            "  +---+\n  |   |\n  O   |\n /|\\  |\n /    |\n      |\n=========",
+            "  +---+\n  |   |\n  O   |\n /|\\  |\n / \\  |\n      |\n========="
+        ];
+
+        let answer, hint, wrongGuesses;
+
+        function initGame() {
+            answer = animals[Math.floor(Math.random() * animals.length)];
+            hint = Array(answer.length).fill("_");
+            wrongGuesses = 0;
+            updateUI();
+            createKeyboard();
+            document.getElementById('game-status').innerText = "Decrypt the hidden animal name...";
+        }
+
+        function createKeyboard() {
+            const kb = document.getElementById('keyboard');
+            kb.innerHTML = '';
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('').forEach(letter => {
+                const btn = document.createElement('button');
+                btn.innerText = letter;
+                btn.className = 'letter-btn';
+                btn.onclick = () => handleGuess(letter, btn);
+                kb.appendChild(btn);
+            });
+        }
+
+        function handleGuess(letter, btn) {
+            btn.disabled = true;
+            if (answer.includes(letter)) {
+                for(let i=0; i<answer.length; i++) {
+                    if(answer[i] === letter) hint[i] = letter;
+                }
+            } else {
+                wrongGuesses++;
+            }
+            updateUI();
+            checkGameEnd();
+        }
+
+        function updateUI() {
+            document.getElementById('word-display').innerText = hint.join(" ");
+            document.getElementById('drawing').innerText = drawings[Math.min(wrongGuesses, drawings.length-1)];
+        }
+
+        function checkGameEnd() {
+            if (!hint.includes("_")) {
+                document.getElementById('game-status').innerText = "SYSTEM DECRYPTED: YOU WIN!!";
+                disableKeyboard();
+            } else if (wrongGuesses >= 6) {
+                document.getElementById('game-status').innerText = `SYSTEM BREACH: YOU LOSE! (WORD: ${answer})`;
+                disableKeyboard();
+            }
+        }
+
+        function disableKeyboard() {
+            document.querySelectorAll('.letter-btn').forEach(b => b.disabled = true);
+        }
+
+        initGame();
+    </script>
+</body>
+</html>
