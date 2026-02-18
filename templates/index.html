@@ -9,19 +9,124 @@
     <meta charset="UTF-8">
     <title>Security Portfolio | Secure IAM Portal</title>
     <style>
-        body { background-color: #000; color: #fff; font-family: sans-serif; padding: 20px; line-height: 1.6; }
-        .box { max-width: 800px; margin: auto; border: 2px solid #ff0000; padding: 30px; background: #0a0a0a; border-radius: 8px; box-shadow: 0 0 15px rgba(255, 0, 0, 0.3); }
-        h1, h2 { color: #ff0000; text-align: center; text-transform: uppercase; letter-spacing: 1px; }
-        table { width: 100%; border-collapse: collapse; margin: 20px 0; background: #111; }
-        th { background: #ff0000; color: #fff; padding: 12px; text-align: left; }
-        td { border: 1px solid #333; padding: 12px; }
-        .screenshot-container { text-align: center; margin-top: 30px; }
-        img { width: 100%; border: 1px solid #ff0000; border-radius: 4px; margin-top: 10px; }
-        .btn { display: inline-block; color: #ff0000; text-decoration: none; border: 1px solid #ff0000; padding: 12px 24px; margin-top: 20px; font-weight: bold; border-radius: 4px; transition: 0.3s; }
-        .btn:hover { background: #ff0000; color: #fff; }
-        ul { list-style: none; padding: 0; }
-        li { margin-bottom: 15px; padding-left: 10px; border-left: 2px solid #ff0000; }
-    </style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap');
+    
+        /* --- GLOBAL THEME --- */
+        :root {
+          --bg: #050508;
+          --panel: #0d0d12;
+          --border: #2a2a35;
+          --text: #ffffff;
+          --muted: #8e8e9f;
+          --red: #ef4444;
+          --red-glow: rgba(239, 68, 68, 0.3);
+          --success: #10b981;
+          --radius: 12px;
+        }
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+          font-family: 'Inter', sans-serif;
+          background-color: var(--bg);
+          background-image: 
+            linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+          background-size: 30px 30px;
+          color: var(--text);
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+        
+        /* NAV */
+        .nav {
+          width: 100%;
+          padding: 20px 10%;
+          display: flex;
+          justify-content: flex-end;
+          background: rgba(0, 0, 0, 0.8);
+          border-bottom: 1px solid var(--border);
+          margin-bottom: 40px;
+        }
+        
+        /* LAYOUT */
+        .container { width: 100%; max-width: 800px; padding: 0 20px; }
+        .box { width: 100%; margin: auto; text-align: center; }
+        
+        /* CARD */
+        .card {
+          background: var(--panel);
+          border: 1px solid var(--border);
+          border-right: 2px solid var(--red);
+          border-radius: var(--radius);
+          padding: 40px;
+          box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+          position: relative;
+          overflow: hidden;
+          text-align: left;
+        }
+        
+        /* SCANLINE */
+        .card::after {
+          content: "";
+          position: absolute;
+          top: 0; left: 0; right: 0; height: 2px;
+          background: var(--red);
+          box-shadow: 0 0 15px var(--red);
+          opacity: 0.1;
+          animation: scan 6s linear infinite;
+        }
+        
+        /* TYPOGRAPHY */
+        h1 { 
+          color: var(--red);
+          text-transform: uppercase;
+          letter-spacing: 2px;
+          margin-bottom: 15px;
+          font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .sub { color: var(--muted); font-size: 14px; margin-bottom: 30px; display: block; }
+        
+        /* INPUTS */
+        .input {
+          width: 100%;
+          padding: 14px;
+          background: rgba(0, 0, 0, 0.5);
+          border: 1px solid var(--border);
+          border-radius: 8px;
+          color: white;
+          margin-bottom: 20px;
+        }
+        
+        .input:focus { border-color: var(--red); box-shadow: 0 0 15px var(--red-glow); }
+        
+        /* BUTTON */
+        .btn-primary {
+          width: 100%;
+          padding: 16px;
+          background: var(--red);
+          color: white;
+          border: none;
+          border-radius: 8px;
+          font-weight: 700;
+          cursor: pointer;
+          text-transform: uppercase;
+        }
+        
+        /* FOOTER LINKS */
+        .footer-links { text-align: center; margin-top: 30px; }
+        .footer-links a { color: var(--red); }
+        
+        /* ANIMATIONS */
+        @keyframes scan {
+          0% { top: 0; }
+          100% { top: 100%; }
+        }
+</style>
+
 
 </head>
 <body>
@@ -247,6 +352,7 @@
     </script>
 </body>
 </html>
+
 
 
 
