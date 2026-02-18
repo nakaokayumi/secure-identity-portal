@@ -43,42 +43,56 @@
         </div>
     </div>
 
+    <div id="error-popup" class="popup-overlay">
+        <div class="popup-card">
+            <h3 style="color: var(--red); margin-bottom: 10px;">AUTHENTICATION ERROR</h3>
+            <p class="sub">The email address provided is already associated with an active identity in our database.</p>
+            <button onclick="closePopup()" class="btn-primary" style="margin-top: 15px; padding: 10px;">RETRY</button>
+        </div>
+    </div>
+
     <script>
-        // We wait for the page to load before running the script
-        window.addEventListener('DOMContentLoaded', () => {
-            const passwordInput = document.getElementById('password');
-            const strengthBar = document.getElementById('strength-bar');
-            const strengthText = document.getElementById('strength-text');
+        // 1. Simulation: A list of already registered emails
+        const knownEmails = ["admin@secure.io", "test@company.com", "user@proton.me"];
 
-            if (passwordInput && strengthBar) {
-                passwordInput.addEventListener('input', () => {
-                    const val = passwordInput.value;
-                    let strength = 0;
+        const form = document.querySelector('form');
+        const emailInput = document.querySelector('input[type="email"]');
+        const popup = document.getElementById('error-popup');
 
-                    // Strength Calculation
-                    if (val.length > 0) strength += 10; // Started typing
-                    if (val.length > 5) strength += 20; 
-                    if (val.length > 10) strength += 20;
-                    if (/[A-Z]/.test(val)) strength += 25; // Has uppercase
-                    if (/[0-9]/.test(val)) strength += 25; // Has number
-
-                    // Update the bar width
-                    strengthBar.style.width = strength + '%';
-
-                    // Update the color and text
-                    if (strength <= 30) {
-                        strengthBar.style.backgroundColor = "#ef4444"; // Red
-                        strengthText.innerText = "Security Level: Weak";
-                    } else if (strength <= 70) {
-                        strengthBar.style.backgroundColor = "#eab308"; // Yellow
-                        strengthText.innerText = "Security Level: Moderate";
-                    } else {
-                        strengthBar.style.backgroundColor = "#10b981"; // Green
-                        strengthText.innerText = "Security Level: Strong";
-                    }
-                });
+        // Handle Registration Submit
+        form.addEventListener('submit', (e) => {
+            if (knownEmails.includes(emailInput.value.toLowerCase())) {
+                e.preventDefault(); // Stop the form from submitting
+                showPopup();
             }
+        });
+
+        function showPopup() {
+            popup.style.display = 'flex';
+        }
+
+        function closePopup() {
+            popup.style.display = 'none';
+        }
+
+        // --- Keep your Password Strength Logic here too ---
+        const passwordInput = document.getElementById('password');
+        const strengthBar = document.getElementById('strength-bar');
+        
+        passwordInput.addEventListener('input', () => {
+            const val = passwordInput.value;
+            let strength = 0;
+            if (val.length > 5) strength += 25;
+            if (val.length > 8) strength += 25;
+            if (/[A-Z]/.test(val)) strength += 25;
+            if (/[0-9]/.test(val)) strength += 25;
+            strengthBar.style.width = strength + '%';
+            
+            if (strength <= 25) strengthBar.style.backgroundColor = "#ef4444";
+            else if (strength <= 75) strengthBar.style.backgroundColor = "#eab308";
+            else strengthBar.style.backgroundColor = "#10b981";
         });
     </script>
 </body>
 </html>
+
