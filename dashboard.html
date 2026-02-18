@@ -48,31 +48,34 @@
                         </tbody>
                     </table>
                 </div>
-
+                <div style="margin-top: 20px; text-align: center; display: flex; flex-direction: column; gap: 15px;">
+                    <a href="game.html" class="btn-primary" style="text-decoration: none; display: inline-block;">
+                        INITIALIZE HANGMAN_PROTOCOL
+                    </a>
+                </div>
                 <div style="margin-top: 30px; text-align: center;">
                     <a href="login.html" class="footer-links" style="color: var(--red); text-decoration: none; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-family: 'JetBrains Mono', monospace;">Logout from Portal</a>
                 </div>
-                <div>
-                    <a href="
             </div>
         </div>
     </div>
 
     <script>
-    const header = document.querySelector('h1');
-    const text = header.innerText;
-    header.innerText = '';
-    let i = 0;
-
-    function typeWriter() {
-        if (i < text.length) {
-            header.innerHTML += text.charAt(i);
-            i++;
-            setTimeout(typeWriter, 100);
+        const header = document.querySelector('h1');
+        const text = header.innerText;
+        header.innerText = '';
+        let i = 0;
+    
+        function typeWriter() {
+            if (i < text.length) {
+                header.innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 100);
+            }
         }
-    }
-    window.onload = typeWriter;
+        window.onload = typeWriter;
     </script>
 </body>
 </html>
+
 
