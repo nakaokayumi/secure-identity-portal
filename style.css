@@ -282,6 +282,30 @@ td {
     100% { opacity: 1; }
 }
 
+.access-note {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Subtle pulse animation to catch the recruiter's eye */
+.access-note::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--neon-red);
+    box-shadow: 0 0 10px var(--neon-red);
+}
+
+.access-note code {
+    background: rgba(0,0,0,0.3);
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+
+
 
 
 
