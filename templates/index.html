@@ -3,19 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <title>Security Portfolio | Secure IAM Portal</title>
-    <style>
-        body { background-color: #000; color: #fff; font-family: sans-serif; padding: 20px; line-height: 1.6; }
-        .box { max-width: 800px; margin: auto; border: 2px solid #ff0000; padding: 30px; background: #0a0a0a; border-radius: 8px; box-shadow: 0 0 15px rgba(255, 0, 0, 0.3); }
-        h1, h2 { color: #ff0000; text-align: center; text-transform: uppercase; letter-spacing: 1px; }
-        table { width: 100%; border-collapse: collapse; margin: 20px 0; background: #111; }
-        th { background: #ff0000; color: #fff; padding: 12px; text-align: left; }
-        td { border: 1px solid #333; padding: 12px; }
-        .screenshot-container { text-align: center; margin-top: 30px; }
-        img { width: 100%; border: 1px solid #ff0000; border-radius: 4px; margin-top: 10px; }
-        .btn { display: inline-block; color: #ff0000; text-decoration: none; border: 1px solid #ff0000; padding: 12px 24px; margin-top: 20px; font-weight: bold; border-radius: 4px; transition: 0.3s; }
-        .btn:hover { background: #ff0000; color: #fff; }
-        ul { list-style: none; padding: 0; }
-        li { margin-bottom: 15px; padding-left: 10px; border-left: 2px solid #ff0000; }
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Security Portfolio | Secure IAM Portal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+<body>
+    <div class="box">
+        <h1>🛡️ Security Case Study</h1>
+        <p style="text-align: center;"><strong>Project:</strong> Secure Identity & Access Management (IAM) Portal</p>
+        <p style="text-align: center;"><strong>Candidate:</strong> Nakaoka Yumi</p>
+
+        <hr style="border: 0.5px solid #333; margin: 30px 0;">
+
+        <section style="margin: 20px 0; border-bottom: 1px solid #333; padding-bottom: 20px;">
+            <h3 style="color: #ff0000;">📌 Project Overview</h3>
+            <p>This project is a Secure Identity & Access Management (IAM) Portal built to demonstrate secure web authentication. I acted as the <b>Lead Security Developer</b>, focusing on protecting user data through backend logic.</p>
+            
+            <h3 style="color: #ff0000;">🚀 Process & Results</h3>
+            <p>I utilized Flask for the backend and implemented <b>PBKDF2 password hashing</b>. This ensures that even if the database is stolen, user passwords remain unreadable. The result is a functional, secure portal that tracks user logins for compliance auditing.</p>
+        </section>
+
+        <h2>📊 Mapping to Industry Skills</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Skill</th>
+                    <th>Implementation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Networking & HTTP</strong></td>
+                    <td>Managed RESTful routing and stateful sessions via Flask.</td>
+                </tr>
+                <tr>
+                    <td><strong>Operating Systems</strong></td>
+                    <td>Local deployment via Python Virtual Environments (venv).</td>
+                </tr>
+                <tr>
+                    <td><strong>Confidentiality</strong></td>
+                    <td>Zero plain-text password storage; SQL injection prevention via parameterized queries.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div id="demo-container" style="background: #111; border: 2px dashed #ff0000; padding: 25px; margin: 30px 0; border-radius: 8px;">
+            <h3 style="color: #ff0000; text-align: center; margin-top: 0;">🖥️ Interactive Portal Demo</h3>
+            
+            <div id="login-interface" style="max-width: 300px; margin: auto; padding: 20px; border: 1px solid #333; background: #000; border-radius: 4px;">
+                <p style="font-size: 0.7em; color: #888; text-align: center;">Try email: <b>admin@secure.io</b><br>Pass: <b>password123</b></p>
+                
+                <label style="display: block; font-size: 0.8em; color: #ff0000; margin-top: 10px;">USER IDENTIFIER</label>
+                <input type="text" id="demo-user" placeholder="Enter Email" style="width: 100%; background: #111; border: 1px solid #333; color: #fff; padding: 8px; margin-bottom: 10px; box-sizing: border-box;">
+                
+                <label style="display: block; font-size: 0.8em; color: #ff0000;">ACCESS KEY</label>
+                <input type="password" id="demo-pass" placeholder="••••••••" style="width: 100%; background: #111; border: 1px solid #333; color: #fff; padding: 8px; margin-bottom: 20px; box-sizing: border-box;">
+                
+                <button onclick="runDemo()" style="width: 100%; background: #ff0000; color: #fff; border: none; padding: 10px; font-weight: bold; cursor: pointer; text-transform: uppercase;">Authenticate</button>
+            </div>
+
+            <div id="dashboard-preview" style="display: none; text-align: center; color: #00ff00; padding: 20px;">
+                <div style="font-size: 30px;">🔓</div>
+                <h4 style="margin: 10px 0;">ACCESS GRANTED</h4>
+                <p style="color: #fff; font-size: 0.8em;">User: admin@secure.io | Role: SuperAdmin</p>
+                <div style="background: #222; padding: 10px; border: 1px solid #00ff00; color: #00ff00; font-family: monospace; font-size: 0.7em; text-align: left;">
+                    [SYSTEM LOG]: Session 8421 Started...<br>
+                    [SYSTEM LOG]: PBKDF2 Hash Verified Successfully...<br>
+                    [SYSTEM LOG]: Integrity Check: OK
+                </div>
+                <button onclick="location.reload()" style="margin-top: 15px; background: transparent; border: 1px solid #fff; color: #fff; padding: 5px 10px; cursor: pointer;">Logout</button>
+            </div>
+        </div>
+
+        <h2 style="text-align: center;">🔐 Core Security Features</h2>
+        <div style="text-align: center;">
+            <ul style="list-style: none; padding: 0; display: inline-block; text-align: left;">
+                <li style="margin-bottom: 15px; padding-left: 10px; border-left: 2px solid #ff0000;">
+                    <strong style="color: #ff0000;">Password Hashing:</strong> Utilized PBKDF2 with SHA-256 salting for zero plain-text storage.
+                </li>
+                <li style="margin-bottom: 15px; padding-left: 10px; border-left: 2px solid #ff0000;">
+                    <strong style="color: #ff0000;">Session Integrity:</strong> Implemented server-side session management to prevent hijacking.
+                </li>
+                <li style="margin-bottom: 15px; padding-left: 10px; border-left: 2px solid #ff0000;">
+                    <strong style="color: #ff0000;">Input Validation:</strong> Applied parameterized SQL queries to mitigate SQL Injection.
+                </li>
+            </ul>
+        </div>
+
+        <h2>🔍 Audit Log Verification</h2>
+        <div class="screenshot-container">
+            <p>Verification of automated event tracking (PDPA compliance testing):</p>
+            <img src="./audit-log.png" alt="Security Audit Log Table">
+        </div>
+
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="https://nakaokayumi.github.io/secure-identity-portal/login.html" class="btn">VIEW FULL SOURCE CODE ON GITHUB</a>
+        </div>
+    </div>
+
+    <script>
+    function runDemo() {
+        const user = document.getElementById('demo-user').value;
+        const pass = document.getElementById('demo-pass').value;
+
+        // Simple validation for interactive demo purposes
+        if(user === "admin@secure.io" && pass === "password123") {
+            document.getElementById('login-interface').style.display = 'none';
+            document.getElementById('dashboard-preview').style.display = 'block';
+        } else {
+            alert("Invalid Credentials. (Hint: See the test login credentials above the fields)");
+        }
+    }
+    </script>
+</body>
+</html>
+
     </style>
 </head>
 <body>
@@ -128,6 +234,7 @@
     </script>
 </body>
 </html>
+
 
 
 
