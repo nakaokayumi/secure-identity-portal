@@ -28,7 +28,57 @@
             </div>
         </div>
     </div>
+    <div id="error-popup" class="popup-overlay">
+        <div class="popup-card">
+            <h3 style="color: var(--red); margin-bottom: 10px;">ACCESS DENIED</h3>
+            <p class="sub" id="error-message">Invalid credentials provided. Please verify your identity and try again.</p>
+            <button onclick="closePopup()" class="btn-primary" style="margin-top: 15px; padding: 10px;">RETRY</button>
+        </div>
+    </div>
+    
+    <script>
+        // 1. Define valid credentials for the demo
+        const VALID_USER = "admin@secure.io";
+        const VALID_PASS = "Admin123!";
+    
+        const loginForm = document.querySelector('form');
+        const emailInput = document.querySelector('input[type="email"]');
+        const passwordInput = document.querySelector('input[type="password"]');
+        const popup = document.getElementById('error-popup');
+        const errorMsg = document.getElementById('error-message');
+    
+        loginForm.addEventListener('submit', (e) => {
+            const email = emailInput.value.toLowerCase();
+            const password = passwordInput.value;
+    
+            // 2. Logic to simulate authentication
+            if (email === VALID_USER && password === VALID_PASS) {
+                // Success! Let the form proceed to dashboard.html
+                return true; 
+            } else {
+                // Failure: Stop the redirect and show the popup
+                e.preventDefault(); 
+                
+                if (email !== VALID_USER) {
+                    errorMsg.innerText = "The email address provided does not match our records.";
+                } else {
+                    errorMsg.innerText = "Incorrect password. Multiple failed attempts may lock your account.";
+                }
+                
+                showPopup();
+            }
+        });
+    
+        function showPopup() {
+            popup.style.display = 'flex';
+        }
+    
+        function closePopup() {
+            popup.style.display = 'none';
+        }
+    </script>
 </body>
 </html>
+
 
 
