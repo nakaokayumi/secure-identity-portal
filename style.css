@@ -43,18 +43,21 @@ body {
 }
 
 .nav a {
-    color: var(--muted);
+    color: var(--text);
     text-decoration: none;
     font-size: 14px;
     font-family: 'JetBrains Mono', monospace;
     letter-spacing: 1px;
-    transition: 0.3s;
+    transition: all 0.3s ease;
     margin-right: 20px;
+    text-transform: uppercase;
+    opacity: 0.8;
 }
 
 .nav a:hover {
     color: var(--red);
-    text-shadow: 0 0 8px var(--red-glow);
+    text-shadow: 0 0 10px var(--red-glow);
+    opacity: 1;
 }
 
 /* --- MAIN CONTAINER & BOX --- */
@@ -208,5 +211,6 @@ td {
   0% { top: 0; }
   100% { top: 100%; }
 }
+
 
 
