@@ -343,48 +343,8 @@
             </div>
         </div>
 
-        <h2 style="text-align: center;">🔐 Core Security Features</h2>
-        <div style="text-align: center;">
-            <ul style="list-style: none; padding: 0; display: inline-block; text-align: left;">
-                <li style="margin-bottom: 15px; padding-left: 10px; border-left: 2px solid #ff0000;">
-                    <strong style="color: #ff0000;">Password Hashing:</strong> Utilized PBKDF2 with SHA-256 salting for zero plain-text storage.
-                </li>
-                <li style="margin-bottom: 15px; padding-left: 10px; border-left: 2px solid #ff0000;">
-                    <strong style="color: #ff0000;">Session Integrity:</strong> Implemented server-side session management to prevent hijacking.
-                </li>
-                <li style="margin-bottom: 15px; padding-left: 10px; border-left: 2px solid #ff0000;">
-                    <strong style="color: #ff0000;">Input Validation:</strong> Applied parameterized SQL queries to mitigate SQL Injection.
-                </li>
-            </ul>
-        </div>
 
-        <h2>🔍 Audit Log Verification</h2>
-        <div class="screenshot-container">
-            <p>Verification of automated event tracking (PDPA compliance testing):</p>
-            <img src="./audit-log.png" alt="Security Audit Log Table">
-        </div>
 
-        <div style="text-align: center; margin-top: 40px;">
-            <a href="https://nakaokayumi.github.io/secure-identity-portal/login.html" class="btn">VIEW FULL SOURCE CODE ON GITHUB</a>
-        </div>
-    </div>
-
-    <script>
-    function runDemo() {
-        const user = document.getElementById('demo-user').value;
-        const pass = document.getElementById('demo-pass').value;
-
-        // Simple validation for interactive demo purposes
-        if(user === "admin@secure.io" && pass === "password123") {
-            document.getElementById('login-interface').style.display = 'none';
-            document.getElementById('dashboard-preview').style.display = 'block';
-        } else {
-            alert("Invalid Credentials. (Hint: See the test login credentials above the fields)");
-        }
-    }
-    </script>
-</body>
-</html>
 
 
 
