@@ -74,8 +74,8 @@ body {
 /* Container for the bar */
 .strength-container {
     width: 100%;
-    height: 4px;
-    background: rgba(255, 255, 255, 0.1);
+    height: 6px;
+    background: #2a2a35;
     margin-top: -15px; /* Pull it closer to the input */
     margin-bottom: 20px;
     border-radius: 2px;
@@ -231,6 +231,7 @@ td {
   0% { top: 0; }
   100% { top: 100%; }
 }
+
 
 
 
