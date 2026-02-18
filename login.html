@@ -40,45 +40,76 @@
         // 1. Define valid credentials for the demo
         const VALID_USER = "admin@secure.io";
         const VALID_PASS = "Admin123!";
-    
+        let failedAttempts = 0;
+        let isLocked = false;
+        
         const loginForm = document.querySelector('form');
         const emailInput = document.querySelector('input[type="email"]');
         const passwordInput = document.querySelector('input[type="password"]');
         const popup = document.getElementById('error-popup');
         const errorMsg = document.getElementById('error-message');
-    
+        const lockoutOverlay = document.getElementById('lockout-overlay');
+        const timerBox = document.getElementById('timer-box');
+        
         loginForm.addEventListener('submit', (e) => {
+            if (isLocked) {
+                e.preventDefault();
+                return;
+            }
+        
             const email = emailInput.value.toLowerCase();
             const password = passwordInput.value;
-    
-            // 2. Logic to simulate authentication
+        
             if (email === VALID_USER && password === VALID_PASS) {
-                // Success! Let the form proceed to dashboard.html
                 return true; 
             } else {
-                // Failure: Stop the redirect and show the popup
-                e.preventDefault(); 
-                
-                if (email !== VALID_USER) {
-                    errorMsg.innerText = "The email address provided does not match our records.";
+                e.preventDefault();
+                failedAttempts++;
+        
+                if (failedAttempts >= 3) {
+                    startLockout();
                 } else {
-                    errorMsg.innerText = "Incorrect password. Multiple failed attempts may lock your account.";
+                    errorMsg.innerText = `Invalid credentials. Attempt ${failedAttempts} of 3 before lockout.`;
+                    showPopup();
                 }
-                
-                showPopup();
             }
         });
-    
-        function showPopup() {
-            popup.style.display = 'flex';
+        
+        function startLockout() {
+            isLocked = true;
+            failedAttempts = 0; // Reset counter for next time
+            closePopup();
+            lockoutOverlay.style.display = 'flex';
+            
+            let timeLeft = 30;
+            const interval = setInterval(() => {
+                timeLeft--;
+                timerBox.innerText = `00:${timeLeft < 10 ? '0' + timeLeft : timeLeft}`;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(interval);
+                    isLocked = false;
+                    lockoutOverlay.style.display = 'none';
+                }
+            }, 1000);
         }
-    
-        function closePopup() {
-            popup.style.display = 'none';
-        }
+        
+        function showPopup() { popup.style.display = 'flex'; }
+        function closePopup() { popup.style.display = 'none'; }
+        <div id="lockout-overlay" class="popup-overlay" style="flex-direction: column;">
+            <div class="popup-card">
+                <h3 style="color: var(--red); margin-bottom: 15px;">SYSTEM LOCKOUT</h3>
+                <p class="sub">Too many failed login attempts detected. Access to this terminal has been suspended.</p>
+                <div id="timer-box" style="font-family: 'JetBrains Mono', monospace; font-size: 2rem; color: var(--red); margin: 20px 0;">
+                    00:30
+                </div>
+                <p style="font-size: 11px; opacity: 0.5; text-transform: uppercase;">Identity Verification Required</p>
+            </div>
+        </div>
     </script>
 </body>
 </html>
+
 
 
 
