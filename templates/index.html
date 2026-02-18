@@ -10,121 +10,154 @@
     <title>Security Portfolio | Secure IAM Portal</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap');
-    
-        /* --- GLOBAL THEME --- */
-        :root {
-          --bg: #050508;
-          --panel: #0d0d12;
-          --border: #2a2a35;
-          --text: #ffffff;
-          --muted: #8e8e9f;
-          --red: #ef4444;
-          --red-glow: rgba(239, 68, 68, 0.3);
-          --success: #10b981;
-          --radius: 12px;
-        }
-        
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        
+
+        /* ===== GLOBAL CYBER THEME ===== */
         body {
           font-family: 'Inter', sans-serif;
-          background-color: var(--bg);
-          background-image: 
-            linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+          background-color: #050508;
+          color: #ffffff;
+          padding: 20px;
+          line-height: 1.6;
+          margin: 0;
+        
+          /* cyber grid overlay */
+          background-image:
+            linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
           background-size: 30px 30px;
-          color: var(--text);
-          min-height: 100vh;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
         }
         
-        /* NAV */
-        .nav {
-          width: 100%;
-          padding: 20px 10%;
-          display: flex;
-          justify-content: flex-end;
-          background: rgba(0, 0, 0, 0.8);
-          border-bottom: 1px solid var(--border);
-          margin-bottom: 40px;
-        }
-        
-        /* LAYOUT */
-        .container { width: 100%; max-width: 800px; padding: 0 20px; }
-        .box { width: 100%; margin: auto; text-align: center; }
-        
-        /* CARD */
-        .card {
-          background: var(--panel);
-          border: 1px solid var(--border);
-          border-right: 2px solid var(--red);
-          border-radius: var(--radius);
+        /* ===== MAIN PANEL ===== */
+        .box {
+          max-width: 900px;
+          margin: auto;
           padding: 40px;
-          box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+          background: #0d0d12;
+          border: 1px solid #2a2a35;
+          border-right: 3px solid #ef4444;
+          border-radius: 12px;
+          box-shadow: 0 25px 50px rgba(0,0,0,0.6);
           position: relative;
           overflow: hidden;
-          text-align: left;
         }
         
-        /* SCANLINE */
-        .card::after {
+        /* scanline effect */
+        .box::after {
           content: "";
           position: absolute;
-          top: 0; left: 0; right: 0; height: 2px;
-          background: var(--red);
-          box-shadow: 0 0 15px var(--red);
-          opacity: 0.1;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 2px;
+          background: #ef4444;
+          box-shadow: 0 0 15px #ef4444;
+          opacity: 0.15;
           animation: scan 6s linear infinite;
         }
         
-        /* TYPOGRAPHY */
-        h1 { 
-          color: var(--red);
+        /* ===== HEADINGS ===== */
+        h1, h2, h3 {
+          color: #ef4444;
           text-transform: uppercase;
-          letter-spacing: 2px;
-          margin-bottom: 15px;
+          letter-spacing: 1px;
           font-family: 'JetBrains Mono', monospace;
         }
         
-        .sub { color: var(--muted); font-size: 14px; margin-bottom: 30px; display: block; }
+        h1 { text-align: center; }
         
-        /* INPUTS */
-        .input {
-          width: 100%;
-          padding: 14px;
-          background: rgba(0, 0, 0, 0.5);
-          border: 1px solid var(--border);
-          border-radius: 8px;
-          color: white;
-          margin-bottom: 20px;
+        /* ===== DIVIDERS ===== */
+        hr {
+          border: 0.5px solid #2a2a35;
+          margin: 30px 0;
         }
         
-        .input:focus { border-color: var(--red); box-shadow: 0 0 15px var(--red-glow); }
-        
-        /* BUTTON */
-        .btn-primary {
+        /* ===== TABLE ===== */
+        table {
           width: 100%;
-          padding: 16px;
-          background: var(--red);
-          color: white;
-          border: none;
-          border-radius: 8px;
-          font-weight: 700;
-          cursor: pointer;
-          text-transform: uppercase;
+          border-collapse: collapse;
+          margin: 20px 0;
+          background: #111;
+          border: 1px solid #2a2a35;
         }
         
-        /* FOOTER LINKS */
-        .footer-links { text-align: center; margin-top: 30px; }
-        .footer-links a { color: var(--red); }
+        th {
+          background: rgba(239,68,68,0.1);
+          color: #ef4444;
+          padding: 12px;
+          text-align: left;
+        }
         
-        /* ANIMATIONS */
+        td {
+          border-bottom: 1px solid #2a2a35;
+          padding: 12px;
+          color: #8e8e9f;
+        }
+        
+        /* ===== BUTTON ===== */
+        .btn {
+          display: inline-block;
+          color: #ef4444;
+          border: 1px solid #ef4444;
+          padding: 12px 24px;
+          margin-top: 20px;
+          font-weight: bold;
+          border-radius: 6px;
+          text-decoration: none;
+          transition: 0.3s;
+        }
+        
+        .btn:hover {
+          background: #ef4444;
+          color: white;
+          box-shadow: 0 0 20px rgba(239,68,68,0.4);
+          transform: translateY(-2px);
+        }
+        
+        /* ===== LIST ===== */
+        ul { list-style: none; padding: 0; }
+        
+        li {
+          margin-bottom: 15px;
+          padding-left: 12px;
+          border-left: 2px solid #ef4444;
+        }
+        
+        /* ===== IMAGE ===== */
+        img {
+          width: 100%;
+          border: 1px solid #ef4444;
+          border-radius: 6px;
+          margin-top: 10px;
+        }
+        
+        /* ===== DEMO BOX ===== */
+        #demo-container {
+          background: #111;
+          border: 2px dashed #ef4444;
+          padding: 25px;
+          border-radius: 10px;
+        }
+        
+        input {
+          width: 100%;
+          padding: 10px;
+          background: rgba(0,0,0,0.5);
+          border: 1px solid #2a2a35;
+          color: white;
+        }
+        
+        input:focus {
+          outline: none;
+          border-color: #ef4444;
+          box-shadow: 0 0 12px rgba(239,68,68,0.3);
+        }
+        
+        /* ===== ANIMATION ===== */
         @keyframes scan {
           0% { top: 0; }
           100% { top: 100%; }
         }
+
 </style>
 
 
@@ -352,6 +385,7 @@
     </script>
 </body>
 </html>
+
 
 
 
