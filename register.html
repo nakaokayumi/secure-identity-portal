@@ -26,12 +26,14 @@
                     <input type="email" name="email" class="input" placeholder="name@company.com" required>
 
                     <label>Access Key (Password)</label>
-                    <input type="password" name="password" class="input" placeholder="••••••••" required>
+                    <input type="password" id="password" name="password" class="input" placeholder="••••••••" required>
+
                     <div class="strength-container">
                         <div id="strength-bar" class="strength-bar"></div>
                     </div>
                     <span id="strength-text" class="sub" style="margin-top: 5px; font-size: 10px;">Security Level: Weak</span>
-                    <button type="submit" class="btn-primary">Initialize Account</button>
+
+                    <button type="submit" class="btn-primary" style="margin-top: 20px;">Initialize Account</button>
                 </form>
 
                 <div class="footer-links">
@@ -40,42 +42,43 @@
             </div>
         </div>
     </div>
-       <script>
-        const passwordInput = document.getElementById('password');
-        const strengthBar = document.getElementById('strength-bar');
-        const strengthText = document.getElementById('strength-text');
 
-        passwordInput.addEventListener('input', () => {
-            const val = passwordInput.value;
-            let strength = 0;
+    <script>
+        // We wait for the page to load before running the script
+        window.addEventListener('DOMContentLoaded', () => {
+            const passwordInput = document.getElementById('password');
+            const strengthBar = document.getElementById('strength-bar');
+            const strengthText = document.getElementById('strength-text');
 
-            // Logic for strength calculation
-            if (val.length > 5) strength += 25;
-            if (val.length > 8) strength += 25;
-            if (/[A-Z]/.test(val)) strength += 25;
-            if (/[0-9]/.test(val)) strength += 25;
+            if (passwordInput && strengthBar) {
+                passwordInput.addEventListener('input', () => {
+                    const val = passwordInput.value;
+                    let strength = 0;
 
-            // Update width
-            strengthBar.style.width = strength + '%';
+                    // Strength Calculation
+                    if (val.length > 0) strength += 10; // Started typing
+                    if (val.length > 5) strength += 20; 
+                    if (val.length > 10) strength += 20;
+                    if (/[A-Z]/.test(val)) strength += 25; // Has uppercase
+                    if (/[0-9]/.test(val)) strength += 25; // Has number
 
-            // Update color and text based on strength
-            if (strength <= 25) {
-                strengthBar.style.backgroundColor = "#ef4444"; // Red
-                strengthBar.style.boxShadow = "0 0 10px rgba(239, 68, 68, 0.5)";
-                strengthText.innerText = "Security Level: Weak";
-            } else if (strength <= 75) {
-                strengthBar.style.backgroundColor = "#eab308"; // Orange
-                strengthBar.style.boxShadow = "0 0 10px rgba(234, 179, 8, 0.5)";
-                strengthText.innerText = "Security Level: Moderate";
-            } else {
-                strengthBar.style.backgroundColor = "#10b981"; // Green
-                strengthBar.style.boxShadow = "0 0 10px rgba(16, 185, 129, 0.5)";
-                strengthText.innerText = "Security Level: Strong";
+                    // Update the bar width
+                    strengthBar.style.width = strength + '%';
+
+                    // Update the color and text
+                    if (strength <= 30) {
+                        strengthBar.style.backgroundColor = "#ef4444"; // Red
+                        strengthText.innerText = "Security Level: Weak";
+                    } else if (strength <= 70) {
+                        strengthBar.style.backgroundColor = "#eab308"; // Yellow
+                        strengthText.innerText = "Security Level: Moderate";
+                    } else {
+                        strengthBar.style.backgroundColor = "#10b981"; // Green
+                        strengthText.innerText = "Security Level: Strong";
+                    }
+                });
             }
         });
     </script>
 </body>
 </html>
-
-
-
