@@ -145,7 +145,23 @@ strong { color: var(--text); font-weight: 700; }
   margin-bottom: 20px;
   outline: none;
   transition: 0.3s;
-  font-family: 'JetBrains Mono';
+}
+
+/* Target all input placeholders */
+::placeholder {
+    font-family: 'JetBrains Mono', 'Consolas', monospace;
+    font-size: 0.8rem;
+    color: #555; /* Darker grey to look more "terminal-like" */
+    letter-spacing: 1px;
+}
+
+/* For specific browsers (optional but recommended) */
+input::-webkit-input-placeholder {
+    font-family: 'JetBrains Mono', 'Consolas', monospace;
+}
+
+input::-moz-placeholder {
+    font-family: 'JetBrains Mono', 'Consolas', monospace;
 }
 
 .input:focus { border-color: var(--red); box-shadow: 0 0 15px var(--red-glow); }
@@ -305,6 +321,7 @@ td {
     padding: 2px 5px;
     border-radius: 3px;
 }
+
 
 
 
