@@ -178,13 +178,22 @@
         ];
 
         let answer, hint, wrongGuesses;
-
+       
         function initGame() {
-            answer = animals[Math.floor(Math.random() * animals.length)];
+            // Select random target
+            answer = animals[Math.floor(Math.random() * animals.length)].toUpperCase();
             hint = Array(answer.length).fill("_");
             wrongGuesses = 0;
-            document.getElementById('status').innerText = "Guess the identity of the target...";
+        
+            // The logic to let the player know it's an animal
+            document.getElementById('status').innerText = "TARGET_ACQUIRED: BIOLOGICAL ENTITY (ANIMAL)";
             document.getElementById('status').className = "status-msg";
+            
+            // Optional: Update a specific "Category" element if you have one
+            if(document.getElementById('category-display')) {
+                document.getElementById('category-display').innerText = "DATA_TYPE: KINGDOM_ANIMALIA";
+            }
+        
             createKeyboard();
             updateUI();
         }
