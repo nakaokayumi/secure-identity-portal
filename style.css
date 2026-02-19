@@ -13,7 +13,12 @@
   --radius: 12px;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+  /* Apply JetBrains Mono to everything */
+    * {
+        font-family: 'JetBrains Mono', monospace !important;
+      }
+  
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   font-family: 'Inter', sans-serif;
@@ -321,6 +326,7 @@ td {
     padding: 2px 5px;
     border-radius: 3px;
 }
+
 
 
 
