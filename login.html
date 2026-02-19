@@ -4,90 +4,171 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Secure Login | IAM Portal</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --bg-dark: #0a0a0a;
+            --card-bg: #161616;
+            --terminal-green: #00ff41;
+            --neon-red: #ff3131;
+            --muted: #888;
+            --white: #ffffff;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--white);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h1 { font-size: 1.5rem; letter-spacing: 2px; margin-bottom: 5px; }
+        .sub { color: var(--muted); font-size: 0.85rem; display: block; margin-bottom: 20px; }
+
+        .input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0 20px 0;
+            background: #222;
+            border: 1px solid #333;
+            color: white;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 12px;
+            background: var(--neon-red);
+            border: none;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: opacity 0.3s;
+        }
+
+        .btn-primary:hover { opacity: 0.8; }
+
+        /* Overlay Styles */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: none; /* Controlled by JS */
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .popup-card {
+            background: #111;
+            padding: 30px;
+            border: 1px solid var(--neon-red);
+            text-align: center;
+            border-radius: 8px;
+        }
+    </style>
 </head>
 <body>
+
     <div class="container">
-        <div class="box"> <div class="card">
-                <h1>SECURE LOGIN</h1>
-                <span class="sub">Enter your credentials to access the portal</span>
-                <div class="access-note" style="margin-bottom: 20px; padding: 15px; border: 1px dashed var(--grab-red); background: rgba(204, 0, 0, 0.05); border-radius: 4px;">
-                    <p style="margin: 0; color: var(--terminal-green); font-family: 'Consolas', monospace; font-size: 0.85rem;">
-                        <i class="fas fa-terminal"></i> <span style="color: var(--neon-red);">[SYSTEM_HINT]:</span> FOR TESTING PURPOSES, USE:
-                    </p>
-                    <div style="margin-top: 8px; font-family: 'Consolas', monospace; font-size: 0.9rem;">
-                        <code style="color: white; display: block;">USER: admin@secure.io</code>
-                        <code style="color: white; display: block;">PASS: Red-Astronauts-Eating-3.14159!</code>
-                    </div>
-                </div>
-                            
-                <form action="dashboard.html" method="GET"> <label style="display:block; margin-bottom:5px; font-size:12px; color:var(--muted);">Email Address</label>
-                    <input type="email" name="email" class="input" placeholder="name@company.com" required>
+        <div class="card">
+            <h1>SECURE LOGIN</h1>
+            <span class="sub">Enter your credentials to access the portal</span>
+            
+            <div style="margin-bottom: 20px; padding: 15px; border: 1px dashed var(--neon-red); background: rgba(255, 0, 0, 0.05); border-radius: 4px; text-align: left;">
+                <p style="margin: 0; color: var(--terminal-green); font-family: monospace; font-size: 0.75rem;">[SYSTEM_HINT]: FOR TESTING</p>
+                <code style="color: white; font-size: 0.8rem; display: block; margin-top: 5px;">USER: admin@secure.io</code>
+                <code style="color: white; font-size: 0.8rem; display: block;">PASS: Red-Astroanuts-Eating-3.14159!</code>
+            </div>
 
-                    <label style="display:block; margin-bottom:5px; font-size:12px; color:var(--muted);">Password</label>
-                    <input type="password" name="password" class="input" placeholder="••••••••" required>
+            <form id="loginForm">
+                <label style="display:block; text-align:left; font-size:12px; color:var(--muted);">Email Address</label>
+                <input type="email" id="email" class="input" placeholder="admin@secure.io" required>
 
-                    <button type="submit" class="btn-primary">Sign In</button>
-                </form>
+                <label style="display:block; text-align:left; font-size:12px; color:var(--muted);">Password</label>
+                <input type="password" id="password" class="input" placeholder="••••••••" required>
 
-                <div class="footer-links">
-                    <p><a href="register.html">Need an account? Create Profile</a></p>
-                    <p style="margin-top:10px;"><a href="forgot_password.html" style="opacity: 0.5; font-size: 12px;">Forgot Password?</a></p>
-                </div>
+                <button type="submit" class="btn-primary">Sign In</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="error-popup" class="popup-overlay">
+        <div class="popup-card">
+            <h3 style="color: var(--neon-red);">ACCESS DENIED</h3>
+            <p id="error-message">Invalid credentials.</p>
+            <button onclick="closePopup()" class="btn-primary" style="margin-top: 15px;">RETRY</button>
+        </div>
+    </div>
+
+    <div id="lockout-overlay" class="popup-overlay">
+        <div class="popup-card">
+            <h3 style="color: var(--neon-red);">SYSTEM LOCKOUT</h3>
+            <p class="sub">Too many failed attempts. Try again in:</p>
+            <div id="timer-box" style="font-family: monospace; font-size: 2.5rem; color: var(--neon-red); margin: 20px 0;">
+                00:30
             </div>
         </div>
     </div>
-    <div id="error-popup" class="popup-overlay">
-        <div class="popup-card">
-            <h3 style="color: var(--red); margin-bottom: 10px;">ACCESS DENIED</h3>
-            <p class="sub" id="error-message">Invalid credentials provided. Please verify your identity and try again.</p>
-            <button onclick="closePopup()" class="btn-primary" style="margin-top: 15px; padding: 10px;">RETRY</button>
-        </div>
-    </div>
-    
+
     <script>
-        // 1. Define valid credentials for the demo
         const VALID_USER = "admin@secure.io";
-        const VALID_PASS = "Red-Astronauts-Eating-3.14159!";
+        const VALID_PASS = "Red-Astroanuts-Eating-3.14159!"; // Keeping your specific spelling
         let failedAttempts = 0;
         let isLocked = false;
-        
-        const loginForm = document.querySelector('form');
-        const emailInput = document.querySelector('input[type="email"]');
-        const passwordInput = document.querySelector('input[type="password"]');
-        const popup = document.getElementById('error-popup');
-        const errorMsg = document.getElementById('error-message');
+
+        const loginForm = document.getElementById('loginForm');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const errorPopup = document.getElementById('error-popup');
         const lockoutOverlay = document.getElementById('lockout-overlay');
         const timerBox = document.getElementById('timer-box');
-        
+        const errorMsg = document.getElementById('error-message');
+
         loginForm.addEventListener('submit', (e) => {
-            if (isLocked) {
-                e.preventDefault();
-                return;
-            }
-        
+            e.preventDefault(); // Stop page refresh
+
+            if (isLocked) return;
+
             const email = emailInput.value.toLowerCase();
             const password = passwordInput.value;
-        
+
             if (email === VALID_USER && password === VALID_PASS) {
-                return true; 
+                alert("Login Successful! Redirecting...");
+                window.location.href = "dashboard.html"; 
             } else {
-                e.preventDefault();
                 failedAttempts++;
-        
                 if (failedAttempts >= 3) {
                     startLockout();
                 } else {
                     errorMsg.innerText = `Invalid credentials. Attempt ${failedAttempts} of 3 before lockout.`;
-                    showPopup();
+                    errorPopup.style.display = 'flex';
                 }
             }
         });
-        
+
         function startLockout() {
             isLocked = true;
-            failedAttempts = 0; // Reset counter for next time
-            closePopup();
+            failedAttempts = 0;
+            errorPopup.style.display = 'none';
             lockoutOverlay.style.display = 'flex';
             
             let timeLeft = 30;
@@ -99,26 +180,17 @@
                     clearInterval(interval);
                     isLocked = false;
                     lockoutOverlay.style.display = 'none';
+                    timerBox.innerText = "00:30"; // Reset for next time
                 }
             }, 1000);
         }
-        
-        function showPopup() { popup.style.display = 'flex'; }
-        function closePopup() { popup.style.display = 'none'; }
-        <div id="lockout-overlay" class="popup-overlay" style="flex-direction: column;">
-            <div class="popup-card">
-                <h3 style="color: var(--red); margin-bottom: 15px;">SYSTEM LOCKOUT</h3>
-                <p class="sub">Too many failed login attempts detected. Access to this terminal has been suspended.</p>
-                <div id="timer-box" style="font-family: 'JetBrains Mono', monospace; font-size: 2rem; color: var(--red); margin: 20px 0;">
-                    00:30
-                </div>
-                <p style="font-size: 11px; opacity: 0.5; text-transform: uppercase;">Identity Verification Required</p>
-            </div>
-        </div>
+
+        function closePopup() {
+            errorPopup.style.display = 'none';
+        }
     </script>
 </body>
 </html>
-
 
 
 
