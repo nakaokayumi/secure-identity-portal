@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Profile | Secure IAM Portal</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+        body, input, button, .sub { font-family: 'JetBrains Mono', monospace !important; }
+    </style>
 </head>
 <body class="register-page">
     <div class="nav">
@@ -18,12 +22,23 @@
                 <h1>CREATE PROFILE</h1>
                 <span class="sub">Register new identity in the secure database</span>
 
-                <form action="login.html" method="GET">
+                <div class="access-note" style="border: 1px dashed #ef4444; background: rgba(239, 68, 68, 0.05); padding: 15px; margin: 20px 0; border-radius: 4px;">
+                    <p style="margin: 0; font-size: 0.75rem; color: #ef4444; font-weight: bold;">
+                        [!] PRIVACY_SHIELD_ACTIVE
+                    </p>
+                    <p style="margin: 5px 0; font-size: 0.7rem; color: #8e8e9f; line-height: 1.4;">
+                        To demonstrate <strong>Data Minimization</strong>, please do not use real personal info. Use these sandbox defaults:
+                    </p>
+                    <code style="display: block; color: #10b981; font-size: 0.8rem; margin-top: 5px;">EMAIL: tester@secure.io</code>
+                    <code style="display: block; color: #10b981; font-size: 0.8rem;">PASS: TestPass123!</code>
+                </div>
+
+                <form id="regForm" action="login.html" method="GET">
                     <label>Full Name</label>
-                    <input type="text" name="name" class="input" placeholder="Enter Full Name" required>
+                    <input type="text" name="name" class="input" placeholder="Guest User" required>
 
                     <label>Email Address</label>
-                    <input type="email" name="email" class="input" placeholder="name@company.com" required>
+                    <input type="email" id="emailInput" name="email" class="input" placeholder="tester@secure.io" required>
 
                     <label>Access Key (Password)</label>
                     <input type="password" id="password" name="password" class="input" placeholder="••••••••" required>
@@ -33,7 +48,7 @@
                     </div>
                     <span id="strength-text" class="sub" style="margin-top: 5px; font-size: 10px;">Security Level: Weak</span>
 
-                    <button type="submit" class="btn-primary" style="margin-top: 20px;">Initialize Account</button>
+                    <button type="submit" id="submitBtn" class="btn-primary" style="margin-top: 20px;">Initialize Account</button>
                 </form>
 
                 <div class="footer-links">
@@ -45,39 +60,50 @@
 
     <div id="error-popup" class="popup-overlay">
         <div class="popup-card">
-            <h3 style="color: var(--red); margin-bottom: 10px;">AUTHENTICATION ERROR</h3>
+            <h3 style="color: #ef4444; margin-bottom: 10px;">AUTHENTICATION ERROR</h3>
             <p class="sub">The email address provided is already associated with an active identity in our database.</p>
             <button onclick="closePopup()" class="btn-primary" style="margin-top: 15px; padding: 10px;">RETRY</button>
         </div>
     </div>
 
     <script>
-        // 1. Simulation: A list of already registered emails
         const knownEmails = ["admin@secure.io", "test@company.com", "user@proton.me"];
-
-        const form = document.querySelector('form');
-        const emailInput = document.querySelector('input[type="email"]');
+        const form = document.getElementById('regForm');
+        const emailInput = document.getElementById('emailInput');
+        const submitBtn = document.getElementById('submitBtn');
         const popup = document.getElementById('error-popup');
 
-        // Handle Registration Submit
+        // Personal Email Detection Logic
+        emailInput.addEventListener('input', (e) => {
+            const forbidden = ['gmail', 'yahoo', 'outlook', 'hotmail', 'icloud'];
+            const val = e.target.value.toLowerCase();
+            const isPersonal = forbidden.some(domain => val.includes(domain));
+
+            if (isPersonal) {
+                submitBtn.innerText = "USE_SANDBOX_MAIL_ONLY";
+                submitBtn.style.backgroundColor = "#555";
+                submitBtn.disabled = true;
+            } else {
+                submitBtn.innerText = "Initialize Account";
+                submitBtn.style.backgroundColor = "#ef4444";
+                submitBtn.disabled = false;
+            }
+        });
+
         form.addEventListener('submit', (e) => {
             if (knownEmails.includes(emailInput.value.toLowerCase())) {
-                e.preventDefault(); // Stop the form from submitting
+                e.preventDefault();
                 showPopup();
             }
         });
 
-        function showPopup() {
-            popup.style.display = 'flex';
-        }
+        function showPopup() { popup.style.display = 'flex'; }
+        function closePopup() { popup.style.display = 'none'; }
 
-        function closePopup() {
-            popup.style.display = 'none';
-        }
-
-        // --- Keep your Password Strength Logic here too ---
+        // Password Strength Logic
         const passwordInput = document.getElementById('password');
         const strengthBar = document.getElementById('strength-bar');
+        const strengthText = document.getElementById('strength-text');
         
         passwordInput.addEventListener('input', () => {
             const val = passwordInput.value;
@@ -85,14 +111,21 @@
             if (val.length > 5) strength += 25;
             if (val.length > 8) strength += 25;
             if (/[A-Z]/.test(val)) strength += 25;
-            if (/[0-9]/.test(val)) strength += 25;
+            if (/[!@#$%^&*]/.test(val)) strength += 25;
+            
             strengthBar.style.width = strength + '%';
             
-            if (strength <= 25) strengthBar.style.backgroundColor = "#ef4444";
-            else if (strength <= 75) strengthBar.style.backgroundColor = "#eab308";
-            else strengthBar.style.backgroundColor = "#10b981";
+            if (strength <= 25) {
+                strengthBar.style.backgroundColor = "#ef4444";
+                strengthText.innerText = "Security Level: Weak";
+            } else if (strength <= 75) {
+                strengthBar.style.backgroundColor = "#eab308";
+                strengthText.innerText = "Security Level: Medium";
+            } else {
+                strengthBar.style.backgroundColor = "#10b981";
+                strengthText.innerText = "Security Level: Strong";
+            }
         });
     </script>
 </body>
 </html>
-
