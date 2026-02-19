@@ -145,6 +145,7 @@ strong { color: var(--text); font-weight: 700; }
   margin-bottom: 20px;
   outline: none;
   transition: 0.3s;
+  font-family: 'JetBrains Mono';
 }
 
 .input:focus { border-color: var(--red); box-shadow: 0 0 15px var(--red-glow); }
@@ -304,6 +305,7 @@ td {
     padding: 2px 5px;
     border-radius: 3px;
 }
+
 
 
 
