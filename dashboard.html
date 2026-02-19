@@ -48,6 +48,28 @@
                         </tbody>
                     </table>
                 </div>
+                <div class="security-insights" style="margin-top: 30px; text-align: left; background: rgba(0, 255, 65, 0.03); border: 1px solid #333; padding: 20px; border-radius: 8px;">
+                    <h3 style="color: var(--terminal-green); font-family: 'JetBrains Mono', monospace; font-size: 1rem; margin-bottom: 15px;">
+                        <i class="fas fa-shield-alt"></i> SYSTEM_SECURITY_OVERVIEW
+                    </h3>
+                    
+                    <div style="display: grid; gap: 15px; font-size: 0.85rem; line-height: 1.5; color: #ccc;">
+                        <div>
+                            <strong style="color: white;">1. Brute-Force Mitigation:</strong>
+                            <p style="margin: 5px 0;">Implemented a <code>failedAttempts</code> counter with a hardware-level lockout. After 3 invalid entries, the <code>startLockout()</code> function triggers a 30-second <code>setInterval</code> cooldown, preventing automated dictionary attacks.</p>
+                        </div>
+                        
+                        <div>
+                            <strong style="color: white;">2. High-Entropy Passphrases:</strong>
+                            <p style="margin: 5px 0;">The system utilizes a 31-character passphrase. By using the "Random Word" method combined with mathematical constants (π), we achieve high entropy, making the password resistant to modern cracking clusters.</p>
+                        </div>
+                
+                        <div>
+                            <strong style="color: white;">3. Client-Side Sanitization:</strong>
+                            <p style="margin: 5px 0;">All inputs are normalized using <code>.toLowerCase()</code> and handled via <code>e.preventDefault()</code> to ensure credentials are never leaked through URL parameters or browser history logs.</p>
+                        </div>
+                    </div>
+                </div>
                 <div style="margin-top: 20px; text-align: center; display: flex; flex-direction: column; gap: 15px;">
                     <a href="game.html" class="btn-primary" style="text-decoration: none; display: inline-block;">
                         INITIALIZE HANGMAN_PROTOCOL
@@ -77,6 +99,7 @@
     </script>
 </body>
 </html>
+
 
 
 
