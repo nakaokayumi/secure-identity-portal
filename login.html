@@ -6,173 +6,256 @@
     <title>Secure Login | IAM Portal</title>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        /* --- GLOBAL THEME --- */
         :root {
-            --bg-dark: #0a0a0a;
-            --card-bg: #161616;
-            --terminal-green: #00ff41;
-            --neon-red: #ff3131;
-            --muted: #888;
-            --white: #ffffff;
+            --bg: #050508;
+            --panel: #0d0d12;
+            --border: #2a2a35;
+            --text: #ffffff;
+            --muted: #8e8e9f;
+            --red: #ef4444; 
+            --red-glow: rgba(239, 68, 68, 0.3);
+            --success: #10b981;
+            --radius: 12px;
+        }
+
+        /* Force JetBrains Mono on every single element */
+        * {
+            font-family: 'JetBrains Mono', monospace !important;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            background-color: var(--bg-dark);
-            color: var(--white);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            /* Cyber Grid Overlay */
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 30px 30px;
+            color: var(--text);
+            min-height: 100vh;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            height: 100vh;
-            margin: 0;
+        }
+
+        /* --- NAVIGATION --- */
+        .nav {
+            width: 100%;
+            padding: 20px 10%;
+            display: flex;
+            justify-content: flex-end;
+            background: rgba(0, 0, 0, 0.8);
+            border-bottom: 1px solid var(--border);
+            align-items: center;
+        }
+
+        .nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 14px;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            margin-right: 20px;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+
+        .nav a:hover {
+            color: var(--red);
+            text-shadow: 0 0 10px var(--red-glow);
+            opacity: 1;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        /* --- CONTAINER & CARD --- */
+        .container {
+            width: 100%;
+            max-width: 500px;
+            padding: 40px 20px;
+            margin: auto;
         }
 
         .card {
-            background: var(--card-bg);
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-right: 4px solid var(--red); 
+            border-radius: var(--radius);
             padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
         }
 
-        h1 { font-size: 1.5rem; letter-spacing: 2px; margin-bottom: 5px; }
-        .sub { color: var(--muted); font-size: 0.85rem; display: block; margin-bottom: 20px; }
+        .card::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 2px;
+            background: var(--red);
+            box-shadow: 0 0 15px var(--red);
+            opacity: 0.2;
+            animation: scan 6s linear infinite;
+        }
 
+        h1 { color: var(--red); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; font-size: 1.8rem; }
+        .sub { color: var(--muted); font-size: 14px; margin-bottom: 30px; display: block; }
+
+        /* --- INPUTS & PLACEHOLDERS --- */
         .input {
             width: 100%;
-            padding: 12px;
-            margin: 10px 0 20px 0;
-            background: #222;
-            border: 1px solid #333;
+            padding: 14px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border);
+            border-radius: 8px;
             color: white;
-            border-radius: 4px;
-            box-sizing: border-box;
+            margin-bottom: 20px;
+            outline: none;
+            transition: 0.3s;
+            font-size: 14px;
         }
 
+        .input:focus { border-color: var(--red); box-shadow: 0 0 15px var(--red-glow); }
+
+        ::placeholder { color: #555; letter-spacing: 1px; font-size: 0.85rem; }
+
+        /* --- BUTTONS & LINKS --- */
         .btn-primary {
             width: 100%;
-            padding: 12px;
-            background: var(--neon-red);
-            border: none;
+            padding: 16px;
+            background: var(--red);
             color: white;
-            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
             cursor: pointer;
-            border-radius: 4px;
-            transition: opacity 0.3s;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
         }
 
-        .btn-primary:hover { opacity: 0.8; }
+        .btn-primary:hover { filter: brightness(1.2); transform: translateY(-2px); box-shadow: 0 0 20px var(--red-glow); }
 
-        /* Overlay Styles */
+        .footer-links { text-align: center; margin-top: 25px; display: flex; flex-direction: column; gap: 10px; }
+        .footer-links a { color: var(--muted); text-decoration: none; font-size: 13px; transition: 0.3s; }
+        .footer-links a:hover { color: var(--red); }
+
+        /* --- OVERLAYS --- */
         .popup-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.9);
-            display: none; /* Controlled by JS */
+            display: none; 
             justify-content: center;
             align-items: center;
             z-index: 1000;
+            backdrop-filter: blur(8px);
         }
 
         .popup-card {
-            background: #111;
-            padding: 30px;
-            border: 1px solid var(--neon-red);
+            background: var(--panel);
+            border: 1px solid var(--red);
+            padding: 40px;
+            border-radius: var(--radius);
             text-align: center;
+            box-shadow: 0 0 30px var(--red-glow);
+        }
+
+        @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
+
+        .access-note {
+            border: 1px dashed var(--red);
+            background: rgba(239, 68, 68, 0.05);
+            padding: 15px;
             border-radius: 8px;
+            margin-bottom: 25px;
+            font-size: 0.8rem;
         }
     </style>
 </head>
 <body>
 
+    <div class="nav">
+        <a href="#">Network Status</a>
+        <span class="pill">V3.14 Encryption Active</span>
+    </div>
+
     <div class="container">
         <div class="card">
-            <h1>SECURE LOGIN</h1>
-            <span class="sub">Enter your credentials to access the portal</span>
-            
-            <div style="margin-bottom: 20px; padding: 15px; border: 1px dashed var(--neon-red); background: rgba(255, 0, 0, 0.05); border-radius: 4px; text-align: left;">
-                <p style="margin: 0; color: var(--terminal-green); font-family: monospace; font-size: 0.75rem;">[SYSTEM_HINT]: FOR TESTING</p>
-                <code style="color: white; font-size: 0.8rem; display: block; margin-top: 5px;">USER: admin@secure.io</code>
-                <code style="color: white; font-size: 0.8rem; display: block;">PASS: Red-Astroanuts-Eating-3.14159!</code>
+            <h1>Secure Login</h1>
+            <span class="sub">Enter credentials for Admin Access</span>
+
+            <div class="access-note">
+                <p style="color: var(--success); margin-bottom: 5px;">[SYSTEM_HINT]: TESTING ONLY</p>
+                <code style="display:block; color: white;">USER: admin@secure.io</code>
+                <code style="display:block; color: white;">PASS: Red-Astroanuts-Eating-3.14159!</code>
             </div>
 
             <form id="loginForm">
-                <label style="display:block; text-align:left; font-size:12px; color:var(--muted);">Email Address</label>
-                <input type="email" id="email" class="input" placeholder="admin@secure.io" required>
-            
-                <label style="display:block; text-align:left; font-size:12px; color:var(--muted);">Password</label>
-                <input type="password" id="password" class="input" placeholder="••••••••" style="font-family: 'JetBrains Mono', monospace;" required>
-            
-                <button type="submit" class="btn-primary">Sign In</button>
-            
-                <div class="form-footer" style="margin-top: 20px; font-size: 0.8rem; display: flex; flex-direction: column; gap: 10px;">
-                    <a href="forgot_password.html" style="color: var(--muted); text-decoration: none; transition: 0.3s;" onmouseover="this.style.color='var(--neon-red)'" onmouseout="this.style.color='var(--muted)'">
-                        Trouble signing in? <span style="text-decoration: underline;">Reset Password</span>
-                    </a>
-                    
-                    <div style="height: 1px; background: #333; width: 50%; margin: 5px auto;"></div>
-                    
-                    <p style="color: #666; margin: 0;">
-                        New to the portal? <a href="register.html" style="color: var(--terminal-green); text-underline-offset: 3px;">Create Account</a>
-                    </p>
-                </div>
+                <input type="email" id="email" class="input" placeholder="EMAIL_ADDRESS" required>
+                <input type="password" id="password" class="input" placeholder="ACCESS_KEY" required>
+                <button type="submit" class="btn-primary">Initialize Login</button>
             </form>
+
+            <div class="footer-links">
+                <a href="forgot.html">Forgot Access Key?</a>
+                <a href="register.html">Request New Identity (Register)</a>
+            </div>
         </div>
     </div>
 
     <div id="error-popup" class="popup-overlay">
         <div class="popup-card">
-            <h3 style="color: var(--neon-red);">ACCESS DENIED</h3>
-            <p id="error-message">Invalid credentials.</p>
-            <button onclick="closePopup()" class="btn-primary" style="margin-top: 15px;">RETRY</button>
+            <h2 style="color: var(--red); margin-bottom: 15px;">ACCESS DENIED</h2>
+            <p id="error-message">Identity check failed.</p>
+            <button onclick="closePopup()" class="btn-primary" style="margin-top: 20px;">Retry</button>
         </div>
     </div>
 
     <div id="lockout-overlay" class="popup-overlay">
         <div class="popup-card">
-            <h3 style="color: var(--neon-red);">SYSTEM LOCKOUT</h3>
-            <p class="sub">Too many failed attempts. Try again in:</p>
-            <div id="timer-box" style="font-family: monospace; font-size: 2.5rem; color: var(--neon-red); margin: 20px 0;">
-                00:30
-            </div>
+            <h2 style="color: var(--red); margin-bottom: 15px;">SYSTEM LOCKOUT</h2>
+            <p class="sub">Multiple failed attempts detected.</p>
+            <div id="timer-box" style="font-size: 3rem; color: var(--red); margin: 20px 0;">00:30</div>
         </div>
     </div>
 
     <script>
         const VALID_USER = "admin@secure.io";
-        const VALID_PASS = "Red-Astroanuts-Eating-3.14159!"; // Keeping your specific spelling
-        let failedAttempts = 0;
+        const VALID_PASS = "Red-Astroanuts-Eating-3.14159!";
+        let attempts = 0;
         let isLocked = false;
 
         const loginForm = document.getElementById('loginForm');
-        const emailInput = document.getElementById('email');
-        const passwordInput = document.getElementById('password');
-        const errorPopup = document.getElementById('error-popup');
         const lockoutOverlay = document.getElementById('lockout-overlay');
-        const timerBox = document.getElementById('timer-box');
-        const errorMsg = document.getElementById('error-message');
+        const errorPopup = document.getElementById('error-popup');
 
         loginForm.addEventListener('submit', (e) => {
-            e.preventDefault(); // Stop page refresh
-
+            e.preventDefault();
             if (isLocked) return;
 
-            const email = emailInput.value.toLowerCase();
-            const password = passwordInput.value;
+            const u = document.getElementById('email').value.toLowerCase();
+            const p = document.getElementById('password').value;
 
-            if (email === VALID_USER && password === VALID_PASS) {
-                alert("Login Successful! Redirecting...");
-                window.location.href = "dashboard.html"; 
+            if (u === VALID_USER && p === VALID_PASS) {
+                window.location.href = "dashboard.html";
             } else {
-                failedAttempts++;
-                if (failedAttempts >= 3) {
+                attempts++;
+                if (attempts >= 3) {
                     startLockout();
                 } else {
-                    errorMsg.innerText = `Invalid credentials. Attempt ${failedAttempts} of 3 before lockout.`;
+                    document.getElementById('error-message').innerText = `Invalid credentials. Attempt ${attempts}/3.`;
                     errorPopup.style.display = 'flex';
                 }
             }
@@ -180,38 +263,22 @@
 
         function startLockout() {
             isLocked = true;
-            failedAttempts = 0;
+            attempts = 0;
             errorPopup.style.display = 'none';
             lockoutOverlay.style.display = 'flex';
-            
-            let timeLeft = 30;
-            const interval = setInterval(() => {
-                timeLeft--;
-                timerBox.innerText = `00:${timeLeft < 10 ? '0' + timeLeft : timeLeft}`;
-                
-                if (timeLeft <= 0) {
-                    clearInterval(interval);
+            let time = 30;
+            const timer = setInterval(() => {
+                time--;
+                document.getElementById('timer-box').innerText = `00:${time < 10 ? '0'+time : time}`;
+                if (time <= 0) {
+                    clearInterval(timer);
                     isLocked = false;
                     lockoutOverlay.style.display = 'none';
-                    timerBox.innerText = "00:30"; // Reset for next time
                 }
             }, 1000);
         }
 
-        function closePopup() {
-            errorPopup.style.display = 'none';
-        }
+        function closePopup() { errorPopup.style.display = 'none'; }
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
