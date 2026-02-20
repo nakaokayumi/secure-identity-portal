@@ -202,86 +202,71 @@
                 <code style="display:block; color: white;">PASS: Red-Astronauts-Eating-3.14159!</code>
             </div>
 
-            <form id="loginForm">
-                <input type="email" id="email" class="input" placeholder="EMAIL_ADDRESS" required>
-                <input type="password" id="password" class="input" placeholder="ACCESS_KEY" required>
-                <button type="submit" class="btn-primary">Initialize Login</button>
+            <form id="loginForm" method="POST" action="/login">
+                <input type="email" name="email" id="email" class="input" placeholder="EMAIL_ADDRESS" required>
+                <input type="password" name="password" id="password" class="input" placeholder="ACCESS_KEY" required>
+                <button type="submit" id="submitBtn" class="btn-primary">Initialize Login</button>
             </form>
-
-            <div class="footer-links">
-                <a href="{{ url_for('forgot_password') }}">Forgot Access Key?</a>
-                <a href="{{ url_for('register') }}">Request New Identity (Register)</a>
-            </div>
-        </div>
-    </div>
-
-    <div id="error-popup" class="popup-overlay">
-        <div class="popup-card">
-            <h2 style="color: var(--red); margin-bottom: 15px;">ACCESS DENIED</h2>
-            <p id="error-message">Identity check failed.</p>
-            <button onclick="closePopup()" class="btn-primary" style="margin-top: 20px;">Retry</button>
-        </div>
-    </div>
-
-    <div id="lockout-overlay" class="popup-overlay">
-        <div class="popup-card">
-            <h2 style="color: var(--red); margin-bottom: 15px;">SYSTEM LOCKOUT</h2>
-            <p class="sub">Multiple failed attempts detected.</p>
-            <div id="timer-box" style="font-size: 3rem; color: var(--red); margin: 20px 0;">00:30</div>
-        </div>
-    </div>
-
-    <script>
-        const VALID_USER = "admin@secure.io";
-        const VALID_PASS = "Red-Astronauts-Eating-3.14159!";
-        let attempts = 0;
-        let isLocked = false;
-
-        const loginForm = document.getElementById('loginForm');
-        const lockoutOverlay = document.getElementById('lockout-overlay');
-        const errorPopup = document.getElementById('error-popup');
-
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            if (isLocked) return;
-
-            const u = document.getElementById('email').value.toLowerCase();
-            const p = document.getElementById('password').value;
-
-            if (u === VALID_USER && p === VALID_PASS) {
-                window.location.href = "dashboard.html";
-            } else {
-                attempts++;
-                if (attempts >= 3) {
-                    startLockout();
-                } else {
-                    document.getElementById('error-message').innerText = `Invalid credentials. Attempt ${attempts}/3.`;
-                    errorPopup.style.display = 'flex';
+            
+            <script>
+                let attempts = 0;
+                let isLocked = false;
+            
+                const loginForm = document.getElementById('loginForm');
+                const lockoutOverlay = document.getElementById('lockout-overlay');
+                const errorPopup = document.getElementById('error-popup');
+                const submitBtn = document.getElementById('submitBtn');
+            
+                loginForm.addEventListener('submit', (e) => {
+                    // If the system is locked, stop everything
+                    if (isLocked) {
+                        e.preventDefault();
+                        return;
+                    }
+            
+                    /* NOTE: We are NOT checking passwords here anymore. 
+                       Python (app.py) will check the database. 
+                       This script now just handles the "Lockout" UI.
+                    */
+                });
+            
+                // Function to trigger the 30-second lockout
+                function startLockout() {
+                    isLocked = true;
+                    attempts = 0;
+                    errorPopup.style.display = 'none';
+                    lockoutOverlay.style.display = 'flex';
+                    submitBtn.disabled = true; // Kill the button
+                    
+                    let time = 30;
+                    const timer = setInterval(() => {
+                        time--;
+                        document.getElementById('timer-box').innerText = `00:${time < 10 ? '0'+time : time}`;
+                        if (time <= 0) {
+                            clearInterval(timer);
+                            isLocked = false;
+                            submitBtn.disabled = false; // Reactivate
+                            lockoutOverlay.style.display = 'none';
+                        }
+                    }, 1000);
                 }
-            }
-        });
-
-        function startLockout() {
-            isLocked = true;
-            attempts = 0;
-            errorPopup.style.display = 'none';
-            lockoutOverlay.style.display = 'flex';
-            let time = 30;
-            const timer = setInterval(() => {
-                time--;
-                document.getElementById('timer-box').innerText = `00:${time < 10 ? '0'+time : time}`;
-                if (time <= 0) {
-                    clearInterval(timer);
-                    isLocked = false;
-                    lockoutOverlay.style.display = 'none';
-                }
-            }, 1000);
-        }
-
-        function closePopup() { errorPopup.style.display = 'none'; }
-    </script>
+            
+                function closePopup() { errorPopup.style.display = 'none'; }
+            
+                // Logic to show errors if Flask sends them back
+                {% if get_flashed_messages() %}
+                    attempts++;
+                    if (attempts >= 3) {
+                        startLockout();
+                    } else {
+                        errorPopup.style.display = 'flex';
+                        document.getElementById('error-message').innerText = "Invalid credentials. Attempt " + attempts + "/3";
+                    }
+                {% endif %}
+            </script>
 </body>
 </html>
+
 
 
 
