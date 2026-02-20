@@ -187,7 +187,7 @@
 <body>
 
     <div class="nav">
-        <a href="#">Network Status</a>
+        <a href="{{ url_for('#') }}">Network Status</a>
         <span class="pill">V3.14 Encryption Active</span>
     </div>
 
@@ -209,8 +209,8 @@
             </form>
 
             <div class="footer-links">
-                <a href="forgot_password.html">Forgot Access Key?</a>
-                <a href="register.html">Request New Identity (Register)</a>
+                <a href="{{ url_for('forgot_password') }}">Forgot Access Key?</a>
+                <a href="{{ url_for('register') }}">Request New Identity (Register)</a>
             </div>
         </div>
     </div>
@@ -282,5 +282,6 @@
     </script>
 </body>
 </html>
+
 
 
