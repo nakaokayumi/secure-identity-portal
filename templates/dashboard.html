@@ -8,7 +8,7 @@
 </head>
 <body class="dashboard-page">
     <div class="nav">
-        <a href="index.html">Project Home</a>
+        <a href="{{ url_for('register') }}">Project Home</a>
         <span class="pill">Secure Session</span>
     </div>
 
@@ -71,12 +71,12 @@
                     </div>
                 </div>
                 <div style="margin-top: 20px; text-align: center; display: flex; flex-direction: column; gap: 15px;">
-                    <a href="game.html" class="btn-primary" style="text-decoration: none; display: inline-block;">
+                    <a href="{{ url_for('register') }}" class="btn-primary" style="text-decoration: none; display: inline-block;">
                         INITIALIZE HANGMAN_PROTOCOL
                     </a>
                 </div>
                 <div style="margin-top: 30px; text-align: center;">
-                    <a href="login.html" class="footer-links" style="color: var(--red); text-decoration: none; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-family: 'JetBrains Mono', monospace;">Logout from Portal</a>
+                    <a href="{{ url_for('register') }}" class="footer-links" style="color: var(--red); text-decoration: none; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-family: 'JetBrains Mono', monospace;">Logout from Portal</a>
                 </div>
             </div>
         </div>
