@@ -19,7 +19,6 @@
             --radius: 12px;
         }
 
-        /* Force JetBrains Mono on every single element */
         * {
             font-family: 'JetBrains Mono', monospace !important;
             box-sizing: border-box;
@@ -29,7 +28,6 @@
 
         body {
             background-color: var(--bg);
-            /* Cyber Grid Overlay */
             background-image: 
                 linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
@@ -56,18 +54,12 @@
             color: var(--text);
             text-decoration: none;
             font-size: 14px;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
             margin-right: 20px;
             text-transform: uppercase;
             opacity: 0.8;
         }
 
-        .nav a:hover {
-            color: var(--red);
-            text-shadow: 0 0 10px var(--red-glow);
-            opacity: 1;
-        }
+        .nav a:hover { color: var(--red); opacity: 1; }
 
         .pill {
             display: inline-flex;
@@ -97,23 +89,11 @@
             padding: 40px;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
             position: relative;
-            overflow: hidden;
-        }
-
-        .card::after {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; right: 0; height: 2px;
-            background: var(--red);
-            box-shadow: 0 0 15px var(--red);
-            opacity: 0.2;
-            animation: scan 6s linear infinite;
         }
 
         h1 { color: var(--red); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; font-size: 1.8rem; }
         .sub { color: var(--muted); font-size: 14px; margin-bottom: 30px; display: block; }
 
-        /* --- INPUTS & PLACEHOLDERS --- */
         .input {
             width: 100%;
             padding: 14px;
@@ -123,15 +103,11 @@
             color: white;
             margin-bottom: 20px;
             outline: none;
-            transition: 0.3s;
             font-size: 14px;
         }
 
         .input:focus { border-color: var(--red); box-shadow: 0 0 15px var(--red-glow); }
 
-        ::placeholder { color: #555; letter-spacing: 1px; font-size: 0.85rem; }
-
-        /* --- BUTTONS & LINKS --- */
         .btn-primary {
             width: 100%;
             padding: 16px;
@@ -142,16 +118,15 @@
             font-weight: 700;
             cursor: pointer;
             text-transform: uppercase;
-            transition: all 0.3s ease;
         }
 
-        .btn-primary:hover { filter: brightness(1.2); transform: translateY(-2px); box-shadow: 0 0 20px var(--red-glow); }
+        .btn-primary:disabled { background: #444; cursor: not-allowed; }
 
         .footer-links { text-align: center; margin-top: 25px; display: flex; flex-direction: column; gap: 10px; }
-        .footer-links a { color: var(--muted); text-decoration: none; font-size: 13px; transition: 0.3s; }
+        .footer-links a { color: var(--muted); text-decoration: none; font-size: 13px; }
         .footer-links a:hover { color: var(--red); }
 
-        /* --- OVERLAYS --- */
+        /* --- POPUPS --- */
         .popup-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -169,18 +144,6 @@
             padding: 40px;
             border-radius: var(--radius);
             text-align: center;
-            box-shadow: 0 0 30px var(--red-glow);
-        }
-
-        @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
-
-        .access-note {
-            border: 1px dashed var(--red);
-            background: rgba(239, 68, 68, 0.05);
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 25px;
-            font-size: 0.8rem;
         }
     </style>
 </head>
@@ -194,80 +157,93 @@
     <div class="container">
         <div class="card">
             <h1>Secure Login</h1>
-            <span class="sub">Enter credentials for Admin Access</span>
-
-            <div class="access-note">
-                <p style="color: var(--success); margin-bottom: 5px;">[SYSTEM_HINT]: TESTING ONLY</p>
-                <code style="display:block; color: white;">USER: admin@secure.io</code>
-                <code style="display:block; color: white;">PASS: Red-Astronauts-Eating-3.14159!</code>
-            </div>
+            <span class="sub">Enter credentials for Database Access</span>
 
             <form id="loginForm" method="POST" action="/login">
                 <input type="email" name="email" id="email" class="input" placeholder="EMAIL_ADDRESS" required>
                 <input type="password" name="password" id="password" class="input" placeholder="ACCESS_KEY" required>
                 <button type="submit" id="submitBtn" class="btn-primary">Initialize Login</button>
             </form>
+
+            <div class="footer-links">
+                <a href="{{ url_for('forgot_password') }}">Forgot Access Key?</a>
+                <a href="{{ url_for('register') }}">Request New Identity (Register)</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="error-popup" class="popup-overlay">
+        <div class="popup-card">
+            <h2 style="color: var(--red); margin-bottom: 15px;">ACCESS DENIED</h2>
+            <p id="error-message">Identity check failed.</p>
+            <button onclick="closePopup()" class="btn-primary" style="margin-top: 20px;">Retry</button>
+        </div>
+    </div>
+
+    <div id="lockout-overlay" class="popup-overlay">
+        <div class="popup-card">
+            <h2 style="color: var(--red); margin-bottom: 15px;">SYSTEM LOCKOUT</h2>
+            <p class="sub">Multiple failed attempts detected.</p>
+            <div id="timer-box" style="font-size: 3rem; color: var(--red); margin: 20px 0;">00:30</div>
+        </div>
+    </div>
+
+    <script>
+        let attempts = localStorage.getItem('login_attempts') || 0;
+        let isLocked = false;
+
+        const loginForm = document.getElementById('loginForm');
+        const lockoutOverlay = document.getElementById('lockout-overlay');
+        const errorPopup = document.getElementById('error-popup');
+        const submitBtn = document.getElementById('submitBtn');
+
+        // Prevent submission if locked
+        loginForm.addEventListener('submit', (e) => {
+            if (isLocked) {
+                e.preventDefault();
+                return;
+            }
+        });
+
+        function startLockout() {
+            isLocked = true;
+            errorPopup.style.display = 'none';
+            lockoutOverlay.style.display = 'flex';
+            submitBtn.disabled = true;
             
-            <script>
-                let attempts = 0;
-                let isLocked = false;
-            
-                const loginForm = document.getElementById('loginForm');
-                const lockoutOverlay = document.getElementById('lockout-overlay');
-                const errorPopup = document.getElementById('error-popup');
-                const submitBtn = document.getElementById('submitBtn');
-            
-                loginForm.addEventListener('submit', (e) => {
-                    // If the system is locked, stop everything
-                    if (isLocked) {
-                        e.preventDefault();
-                        return;
-                    }
-            
-                    /* NOTE: We are NOT checking passwords here anymore. 
-                       Python (app.py) will check the database. 
-                       This script now just handles the "Lockout" UI.
-                    */
-                });
-            
-                // Function to trigger the 30-second lockout
-                function startLockout() {
-                    isLocked = true;
+            let time = 30;
+            const timer = setInterval(() => {
+                time--;
+                document.getElementById('timer-box').innerText = `00:${time < 10 ? '0'+time : time}`;
+                if (time <= 0) {
+                    clearInterval(timer);
+                    isLocked = false;
                     attempts = 0;
-                    errorPopup.style.display = 'none';
-                    lockoutOverlay.style.display = 'flex';
-                    submitBtn.disabled = true; // Kill the button
-                    
-                    let time = 30;
-                    const timer = setInterval(() => {
-                        time--;
-                        document.getElementById('timer-box').innerText = `00:${time < 10 ? '0'+time : time}`;
-                        if (time <= 0) {
-                            clearInterval(timer);
-                            isLocked = false;
-                            submitBtn.disabled = false; // Reactivate
-                            lockoutOverlay.style.display = 'none';
-                        }
-                    }, 1000);
+                    localStorage.setItem('login_attempts', 0);
+                    submitBtn.disabled = false;
+                    lockoutOverlay.style.display = 'none';
                 }
-            
-                function closePopup() { errorPopup.style.display = 'none'; }
-            
-                // Logic to show errors if Flask sends them back
-                {% if get_flashed_messages() %}
-                    attempts++;
-                    if (attempts >= 3) {
-                        startLockout();
-                    } else {
-                        errorPopup.style.display = 'flex';
-                        document.getElementById('error-message').innerText = "Invalid credentials. Attempt " + attempts + "/3";
-                    }
-                {% endif %}
-            </script>
+            }, 1000);
+        }
+
+        function closePopup() { errorPopup.style.display = 'none'; }
+
+        // Triggered if Python sends an error back
+        {% if get_flashed_messages() %}
+            attempts++;
+            localStorage.setItem('login_attempts', attempts);
+            if (attempts >= 3) {
+                startLockout();
+            } else {
+                errorPopup.style.display = 'flex';
+                document.getElementById('error-message').innerText = "Invalid credentials. Attempt " + attempts + "/3";
+            }
+        {% endif %}
+
+        // Check on page load if they are already supposed to be locked out
+        if (attempts >= 3) {
+            startLockout();
+        }
+    </script>
 </body>
 </html>
-
-
-
-
-
