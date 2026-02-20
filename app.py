@@ -32,7 +32,7 @@ def current_user_email():
 
 # --- CORE ROUTES ---
 
-@@app.route("/")
+@app.route("/")
 def home():
     return render_template("index.html") # This would show index.html first
 
@@ -187,5 +187,6 @@ def logout():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
+
 
 
