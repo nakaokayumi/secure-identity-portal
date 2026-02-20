@@ -99,7 +99,7 @@ def login():
 
 # --- PASSWORD RESET & SECURITY ---
 
-@app.route("/forgot-password", methods=["GET", "POST"])
+@app.route("/forgot_password", methods=["GET", "POST"])
 def forgot_password():
     if request.method == "POST":
         email = (request.form.get("email") or "").strip().lower()
@@ -114,7 +114,7 @@ def forgot_password():
         return redirect(url_for("login"))
     return render_template("forgot_password.html")
 
-@app.route("/reset-password", methods=["GET", "POST"])
+@app.route("/reset_password", methods=["GET", "POST"])
 def reset_password():
     email = request.args.get("email") or request.form.get("email")
     if request.method == "POST":
@@ -165,7 +165,7 @@ def profile():
 
 # --- ACCOUNT DELETION ---
 
-@app.route("/delete-account", methods=["POST"])
+@app.route("/delete_account", methods=["POST"])
 def delete_account():
     email = current_user_email()
     if not email: return redirect(url_for("login"))
@@ -189,3 +189,4 @@ def logout():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
+
