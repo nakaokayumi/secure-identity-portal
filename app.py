@@ -32,11 +32,9 @@ def current_user_email():
 
 # --- CORE ROUTES ---
 
-@app.route("/")
+@@app.route("/")
 def home():
-    if current_user_email():
-        return redirect(url_for("dashboard"))
-    return redirect(url_for("login"))
+    return render_template("index.html") # This would show index.html first
 
 @app.route("/privacy")
 def privacy():
@@ -189,4 +187,5 @@ def logout():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
+
 
