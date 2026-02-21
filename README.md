@@ -1,80 +1,107 @@
-# 🛡️ SECURITY CASE STUDY  
-## Secure Identity & Access Management (IAM) Portal  
-**Candidate:** Nakaoka Yumi  
+<h1 align="center">🛡️ Secure Identity & Access Management (IAM) Portal</h1>
+
+<p align="center">
+  Security-First Authentication • Activity Monitoring • Cloud Deployment
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.x-blue">
+  <img src="https://img.shields.io/badge/Framework-Flask-black">
+  <img src="https://img.shields.io/badge/Database-PostgreSQL-blue">
+  <img src="https://img.shields.io/badge/Hosting-Render-purple">
+  <img src="https://img.shields.io/badge/Security-PBKDF2%20SHA256-green">
+</p>
 
 ---
 
-## 📌 Project Overview  
-This project is a full-stack Secure Identity & Access Management (IAM) Portal built with a security-first design approach. I independently designed, developed, and deployed the system, focusing on protecting user data through secure authentication logic, structured audit logging, and encrypted credential storage.
+## 📌 Project Overview
+A full-stack cloud-based Identity & Access Management (IAM) system built with a **security-first design approach**.
+
+The platform provides secure user authentication, protected account access, and structured audit logging for monitoring and traceability.  
+Developed independently to demonstrate real-world defensive web security practices and cloud deployment architecture.
 
 ---
 
-## 🚀 Process & Results  
-The backend was developed using Flask, with PBKDF2 password hashing (SHA-256) implemented to securely store user credentials. This ensures passwords remain protected even if the database is compromised.  
+## 🚀 Core Features
 
-The system provides a functional secure login environment that records authentication activity for monitoring and traceability, while managing the full user lifecycle from registration to account access and deletion.
+### 🔐 Secure Authentication
+- PBKDF2 password hashing with SHA-256 salting  
+- No plaintext credential storage  
+- Protected login workflow  
+
+### 🧭 Session Protection
+- Server-side session enforcement  
+- Authenticated route access control  
+
+### 📊 Audit Logging
+- Login activity tracking  
+- Timestamped authentication records  
+- IP address traceability  
+
+### 🧾 Data Privacy Controls
+- Permanent account deletion  
+- User control over stored personal data  
+
+### 🧩 Protected Resource Demonstration
+- Session-restricted interactive module (Hangman Protocol)
 
 ---
 
-## 🛠️ Key Technical Features  
+## ☁️ System Architecture
 
-### Secure Authentication  
-Implements salted PBKDF2 password hashing to prevent plaintext credential storage.
+| Component | Technology |
+|---|---|
+| Backend | Python Flask |
+| Database | PostgreSQL (Supabase) |
+| Hosting | Render |
+| Security | PBKDF2 SHA-256, parameterized SQL |
+| Environment | Python virtual environments |
 
-### Session Security  
-Server-side session controls restrict access to authenticated users and protect protected routes.
-
-### Audit Logging  
-Login activity is recorded with timestamps and IP address data to support monitoring and investigation of suspicious activity.
-
-### Data Privacy Controls  
-Includes permanent account deletion functionality, supporting user control over stored personal data.
+Application hosting and data storage are separated to reflect real-world cloud deployment practices.
 
 ---
 
-## 📊 Mapping to Industry Skills  
+## 🛡️ Security Design Principles
+- Encrypted credential storage  
+- SQL injection prevention  
+- Session-based access control  
+- Authentication activity monitoring  
+- Forensic traceability of login events  
+
+---
+
+## 📊 Industry Skill Mapping
 
 | Skill | Implementation |
 |---|---|
-| Networking & HTTP | Implemented routing, authentication flows, and session handling using Flask |
-| Environment Management | Local development using Python virtual environments (venv) |
-| Data Confidentiality | Prevented SQL injection with parameterized queries and enforced encrypted password storage |
+| Networking & HTTP | Routing, authentication flows, session handling |
+| Environment Management | Isolated development using Python venv |
+| Data Confidentiality | Parameterized queries and hashed password storage |
 
 ---
 
-## 🖥️ Preview & Technical Analysis  
-
-### Audit Trail Preview  
-
-**Forensic Traceability**  
-The system maintains a chronological record of authentication activity, including user email and IP address. This provides useful data for reviewing login behaviour and investigating unauthorized access attempts.
+## 🖥️ Monitoring & Audit Trail
+The system maintains a chronological record of authentication activity including user email and IP address, supporting investigation of unauthorized access attempts.
 
 ---
 
-## ☁️ Tech Stack  
-
-- Python (Flask)  
-- PostgreSQL (Supabase)  
-- Render (Cloud Hosting)  
-- PBKDF2 SHA-256 Password Hashing  
-- Server-Side Session Management  
-
----
-
-## 🔗 Live Application  
+## 🔗 Live Application
 https://secure-identity-portal-render-version.onrender.com
 
-## 🔗 Digital Portfolio  
+## 🔗 Digital Portfolio
 https://nakaokayumi.github.io/digital-portfolio/
 
 ---
 
-## 🚀 Future Improvements  
-
+## 🚀 Future Improvements
 - Multi-factor authentication (MFA)  
 - Role-based access control (RBAC)  
 - OAuth / Single Sign-On (SSO)  
 - Real-time threat detection alerts  
-- Containerized deployment with Docker  
+- Containerized deployment (Docker)
 
 ---
+
+## 👩‍💻 Author
+**Nakaoka Yumi**  
+Cybersecurity & Secure Systems Development
