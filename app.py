@@ -137,20 +137,41 @@ def reset_password():
 @app.route("/dashboard")
 def dashboard():
     email = current_user_email()
-    if not email: return redirect(url_for("login"))
-    
+    if not email:
+        return redirect(url_for("login"))
+
     conn = get_conn()
     cur = conn.cursor()
+
     cur.execute("SELECT full_name, last_login, created_at FROM users WHERE email = %s", (email,))
     user = cur.fetchone()
-    
-    # Restored: Fetch last 5 logs for the dashboard
-    cur.execute("SELECT event, ip, created_at FROM audit_logs WHERE email = %s ORDER BY created_at DESC LIMIT 5", (email,))
+
+    if not user:
+        cur.close()
+        conn.close()
+        session.clear()
+        flash("Account not found. Please log in again.")
+        return redirect(url_for("login"))
+
+    cur.execute("""
+        SELECT event, ip, created_at
+        FROM audit_logs
+        WHERE email = %s
+        ORDER BY created_at DESC
+        LIMIT 5
+    """, (email,))
     logs = cur.fetchall()
-    
+
     cur.close()
     conn.close()
-    return render_template("dashboard.html", name=user["full_name"], last_login=user["last_login"], member_since=user["created_at"], logs=logs)
+
+    return render_template(
+        "dashboard.html",
+        name=user["full_name"],
+        last_login=user["last_login"],
+        member_since=user["created_at"],
+        logs=logs
+    )
 
 @app.route("/profile")
 def profile():
@@ -191,6 +212,7 @@ def logout():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
+
 
 
 
