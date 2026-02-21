@@ -3,6 +3,7 @@ import os
 import psycopg2
 from psycopg2.extras import DictCursor
 from werkzeug.security import generate_password_hash, check_password_hash
+from datetime import datetime
 
 app = Flask(__name__)
 # Change this secret key in your Render Environment Variables!
@@ -165,13 +166,22 @@ def dashboard():
     cur.close()
     conn.close()
 
+    hour = datetime.now().hour
+    if hour < 12:
+        greeting = "Good morning"
+    elif hour < 18:
+        greeting = "Good afternoon"
+    else:
+        greeting = "Good evening"
+    
     return render_template(
         "dashboard.html",
         name=user["full_name"],
-        email=email,
+        greeting=greeting,
         last_login=user["last_login"],
         member_since=user["created_at"],
         logs=logs
+    )
     )
 
 @app.route("/profile")
@@ -220,6 +230,7 @@ def game():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
+
 
 
 
