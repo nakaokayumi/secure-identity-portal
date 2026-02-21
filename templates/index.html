@@ -219,7 +219,7 @@
 
             <div id="dashboard-preview" style="display: none; text-align: center; color: #00ff00; padding: 20px;">
                 <div style="font-size: 30px;">🔓</div>
-                <h4 style="margin: 10px 0;">ACCESS GRANTED INIHI</h4>
+                <h4 style="margin: 10px 0;">ACCESS GRANTED</h4>
                 <p style="color: #fff; font-size: 0.8em;">User: admin@secure.io | Role: SuperAdmin</p>
                 <div style="background: #222; padding: 10px; border: 1px solid #00ff00; color: #00ff00; font-size: 0.7em; text-align: left;">
                     [SYSTEM LOG]: Session 8421 Started...<br>
@@ -252,8 +252,15 @@
         </div>
 
         <div style="text-align: center; margin-top: 40px;">
-            <a href="https://nakaokayumi.github.io/secure-identity-portal/login">VIEW LOGIN PORTAL</a>
-            <a href="{{ url_for('login') }}" class="btn-primary">ENTER SECURE PORTAL</a>       
+            <div style="text-align: center; margin-top: 40px; border-top: 1px solid #2a2a35; padding-top: 30px;">
+                <a href="{{ url_for('login') }}" class="btn" style="border-color: #10b981; color: #10b981;">
+                    [ ACCESS_SYSTEM_CORE ]
+                </a>
+            
+                <a href="{{ url_for('register') }}" class="btn">
+                    [ INITIALIZE_NEW_IDENTITY ]
+                </a>
+        </div>       
         </div>
     </div>
 
@@ -272,6 +279,7 @@
     </script>
 </body>
 </html>
+
 
 
 
