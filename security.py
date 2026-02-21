@@ -9,7 +9,6 @@ def is_valid_email(email: str) -> bool:
 def is_strong_password(pw: str) -> bool:
     if not pw or len(pw) < 8:
         return False
-    # at least 1 letter and 1 number
     has_letter = any(c.isalpha() for c in pw)
     has_digit = any(c.isdigit() for c in pw)
     return has_letter and has_digit
@@ -19,3 +18,4 @@ def hash_password(pw: str) -> str:
 
 def verify_password(pw: str, pw_hash: str) -> bool:
     return check_password_hash(pw_hash, pw)
+
