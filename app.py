@@ -210,8 +210,16 @@ def logout():
     session.clear()
     return redirect(url_for("login"))
 
+@app.route("/game")
+def game():
+    email = current_user_email()
+    if not email:
+        return redirect(url_for("login"))
+    return render_template("game.html")
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
+
 
 
 
