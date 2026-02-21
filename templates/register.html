@@ -8,6 +8,18 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
         body, input, button, .sub { font-family: 'JetBrains Mono', monospace !important; }
+        
+        .blink { animation: blinker 1.5s linear infinite; color: #ef4444; }
+        @keyframes blinker { 50% { opacity: 0; } }
+        
+        /* New styling for the better alert box */
+        .access-note {
+            border-left: 3px solid #ef4444;
+            background: rgba(239, 68, 68, 0.05);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
     </style>
 </head>
 <body class="register-page">
@@ -17,104 +29,66 @@
     </div>
 
     <div class="container">
-        <div class="box">
-            <div class="card">
-                <h1>CREATE PROFILE</h1>
-                <span class="sub">Register new identity in the secure database</span>
+        <div class="card">
+            <h1>CREATE PROFILE</h1>
+            <span class="sub">Register new identity in the secure database</span>
 
-                <div class="access-note" style="border: 1px dashed #ef4444; background: rgba(239, 68, 68, 0.05); padding: 15px; margin: 20px 0; border-radius: 4px;">
-                    <p style="margin: 0; font-size: 0.75rem; color: #ef4444; font-weight: bold;">
-                        [!] PRIVACY_SHIELD_ACTIVE
-                    </p>
-                    <p style="margin: 5px 0; font-size: 0.7rem; color: #8e8e9f; line-height: 1.4;">
-                        <div class="access-note" style="border-left: 3px solid var(--red); background: rgba(239, 68, 68, 0.05);">
-                            <p style="color: var(--red); font-weight: bold; font-size: 11px; margin-bottom: 8px;">
-                                <span class="blink">●</span> IDENTITY PROTOCOL ADVISORY
-                            </p>
-                            <p style="color: var(--muted); font-size: 12px; line-height: 1.5;">
-                                Using sandbox defaults (tester@secure.io) executes the portal in 
-                                <span style="color: white;">Read-Only Mode</span>. 
-                                To trigger <strong>Full Data Persistence</strong> and visualize your own 
-                                <strong>Live Audit Logs</strong>, initialize a unique production-ready identity.
-                            </p>
-                        </div>
-                    </p>
-                    <code style="display: block; color: #10b981; font-size: 0.8rem; margin-top: 5px;">EMAIL: admin@secure.io</code>
-                    <code style="display: block; color: #10b981; font-size: 0.8rem;">PASS: Red-Astronauts-Eating-3.14159!</code>
+            <div class="access-note">
+                <p style="color: #ef4444; font-weight: bold; font-size: 11px; margin-bottom: 8px;">
+                    <span class="blink">●</span> IDENTITY PROTOCOL ADVISORY
+                </p>
+                <p style="color: #8e8e9f; font-size: 12px; line-height: 1.5;">
+                    Using sandbox defaults (tester@secure.io) executes the portal in 
+                    <span style="color: white;">Read-Only Mode</span>. <br>
+                    To trigger <strong>Full Data Persistence</strong> and visualize your own 
+                    <strong>Live Audit Logs</strong>, initialize a unique production-ready identity.
+                </p>
+            </div>
+
+            <form id="regForm" action="{{ url_for('register') }}" method="POST">
+                <label>Full Name</label>
+                <input type="text" name="full_name" class="input" placeholder="Guest User" required>
+
+                <label>Email Address</label>
+                <input type="email" id="emailInput" name="email" class="input" placeholder="tester@secure.io" required>
+
+                <label>Access Key (Password)</label>
+                <input type="password" id="password" name="password" class="input" placeholder="••••••••" required>
+
+                <div class="strength-container">
+                    <div id="strength-bar" class="strength-bar" style="height: 4px; width: 0; transition: 0.3s;"></div>
                 </div>
+                <span id="strength-text" class="sub" style="margin-top: 5px; font-size: 10px;">Security Level: Weak</span>
 
-                <form id="regForm" action="login.html" method="GET">
-                    <label>Full Name</label>
-                    <input type="text" name="name" class="input" placeholder="Guest User" required>
+                <button type="submit" id="submitBtn" class="btn-primary" style="margin-top: 20px;">Initialize Account</button>
+            </form>
 
-                    <label>Email Address</label>
-                    <input type="email" id="emailInput" name="email" class="input" placeholder="tester@secure.io" required>
-
-                    <label>Access Key (Password)</label>
-                    <input type="password" id="password" name="password" class="input" placeholder="••••••••" required>
-
-                    <div class="strength-container">
-                        <div id="strength-bar" class="strength-bar"></div>
-                    </div>
-                    <span id="strength-text" class="sub" style="margin-top: 5px; font-size: 10px;">Security Level: Weak</span>
-
-                    <button type="submit" id="submitBtn" class="btn-primary" style="margin-top: 20px;">Initialize Account</button>
-                </form>
-
-                <div class="footer-links">
-                    <p><a href="login.html">Already have an account? Login here</a></p>
-                </div>
+            <div class="footer-links">
+                <p><a href="{{ url_for('login') }}">Already have an account? Login here</a></p>
             </div>
         </div>
     </div>
 
-    <div id="error-popup" class="popup-overlay">
-        <div class="popup-card">
+    <div id="error-popup" class="popup-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center;">
+        <div class="popup-card" style="background:#0d0d12; border:1px solid #ef4444; padding:30px; text-align:center;">
             <h3 style="color: #ef4444; margin-bottom: 10px;">AUTHENTICATION ERROR</h3>
-            <p class="sub">The email address provided is already associated with an active identity in our database.</p>
-            <button onclick="closePopup()" class="btn-primary" style="margin-top: 15px; padding: 10px;">RETRY</button>
+            <p class="sub">This identity is already active in our database.</p>
+            <button onclick="closePopup()" class="btn-primary" style="margin-top: 15px;">RETRY</button>
         </div>
     </div>
 
     <script>
-        const knownEmails = ["admin@secure.io", "test@company.com", "user@proton.me"];
         const form = document.getElementById('regForm');
         const emailInput = document.getElementById('emailInput');
         const submitBtn = document.getElementById('submitBtn');
-        const popup = document.getElementById('error-popup');
-
-        // Personal Email Detection Logic
-        emailInput.addEventListener('input', (e) => {
-            const forbidden = ['gmail', 'yahoo', 'outlook', 'hotmail', 'icloud'];
-            const val = e.target.value.toLowerCase();
-            const isPersonal = forbidden.some(domain => val.includes(domain));
-
-            if (isPersonal) {
-                submitBtn.innerText = "USE_SANDBOX_MAIL_ONLY";
-                submitBtn.style.backgroundColor = "#555";
-                submitBtn.disabled = true;
-            } else {
-                submitBtn.innerText = "Initialize Account";
-                submitBtn.style.backgroundColor = "#ef4444";
-                submitBtn.disabled = false;
-            }
-        });
-
-        form.addEventListener('submit', (e) => {
-            if (knownEmails.includes(emailInput.value.toLowerCase())) {
-                e.preventDefault();
-                showPopup();
-            }
-        });
-
-        function showPopup() { popup.style.display = 'flex'; }
-        function closePopup() { popup.style.display = 'none'; }
-
-        // Password Strength Logic
         const passwordInput = document.getElementById('password');
         const strengthBar = document.getElementById('strength-bar');
         const strengthText = document.getElementById('strength-text');
+        const popup = document.getElementById('error-popup');
+
+        // FIXED: Removed the "USE_SANDBOX_MAIL_ONLY" block so people can actually use Gmail/Outlook!
         
+        // Password Strength Logic
         passwordInput.addEventListener('input', () => {
             const val = passwordInput.value;
             let strength = 0;
@@ -136,14 +110,8 @@
                 strengthText.innerText = "Security Level: Strong";
             }
         });
+
+        function closePopup() { popup.style.display = 'none'; }
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
