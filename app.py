@@ -12,8 +12,12 @@ app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
 
 # --- DATABASE CONNECTION ---
 def get_conn():
-    # Connects to Supabase/Render using the environment variable
-    return psycopg2.connect(os.environ.get('DATABASE_URL'), cursor_factory=DictCursor)
+    db_url = os.environ.get('DATABASE_URL')
+    if not db_url:
+        # This will show a clearer error in the logs if the variable is missing
+        print("ERROR: DATABASE_URL environment variable is not set!")
+        return None
+    return psycopg2.connect(db_url, cursor_factory=DictCursor)
 
 def log_event(event_name, email, ip):
     """Restored your audit logging system"""
@@ -187,6 +191,7 @@ def logout():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
+
 
 
 
