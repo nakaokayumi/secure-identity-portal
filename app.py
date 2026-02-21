@@ -171,7 +171,7 @@ def dashboard():
     return render_template(
         "dashboard.html",
         name=user["full_name"],
-        email=email;
+        email=email,
         greeting=greeting,
         last_login=user["last_login"],
         member_since=user["created_at"],
@@ -223,6 +223,7 @@ def game():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
+
 
 
 
