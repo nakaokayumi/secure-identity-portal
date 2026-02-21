@@ -71,7 +71,7 @@ def register():
         finally:
             cur.close()
             conn.close()
-    return render_template("register.html")
+    return render_template("login.html")
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -191,6 +191,7 @@ def logout():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
+
 
 
 
