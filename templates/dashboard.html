@@ -15,10 +15,19 @@
     <div class="container">
         <div class="box">
             <div class="card">
-                <h1>Welcome, Admin</h1>
+                <div id="welcome-text" style="margin-bottom:20px; color:#00ff41; font-family:Consolas, monospace;">
+                  ACCESS GRANTED — Welcome, {{ name | upper }}
+                </div>
                 <span class="sub">Account Security Dashboard</span>
 
-                <p style="margin-bottom: 20px;"><strong>Email:</strong> admin@secure.io</p>
+                <p style="margin-bottom: 20px;"><strong>Email:</strong> {{ email }}</p>
+                <div class="user-panel">
+                    <h3>PROFILE DATA</h3>
+                
+                    <p><strong>Name:</strong> {{ name }}</p>
+                    <p><strong>Last Login:</strong> {{ last_login }}</p>
+                    <p><strong>Member Since:</strong> {{ member_since }}</p>
+                </div>
 
                 <div class="table-container">
                     <table>
@@ -30,21 +39,19 @@
                             </tr>
                         </thead>
                         <tbody>
+                          {% if logs and logs|length > 0 %}
+                            {% for row in logs %}
+                              <tr>
+                                <td>{{ row["event"] }}</td>
+                                <td>{{ row["ip"] }}</td>
+                                <td>{{ row["created_at"] }}</td>
+                              </tr>
+                            {% endfor %}
+                          {% else %}
                             <tr>
-                                <td>USER_LOGIN</td>
-                                <td>192.168.1.1</td>
-                                <td>2026-02-18 20:04:12</td>
+                              <td colspan="3">No recent activity.</td>
                             </tr>
-                            <tr>
-                                <td>AUTH_VERIFIED</td>
-                                <td>192.168.1.1</td>
-                                <td>2026-02-18 20:04:10</td>
-                            </tr>
-                            <tr>
-                                <td>PBKDF2_HASH_CHECK</td>
-                                <td>SYSTEM</td>
-                                <td>2026-02-18 20:04:09</td>
-                            </tr>
+                          {% endif %}
                         </tbody>
                     </table>
                 </div>
@@ -99,6 +106,7 @@
     </script>
 </body>
 </html>
+
 
 
 
