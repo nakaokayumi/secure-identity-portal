@@ -6,7 +6,6 @@
     <title>Secure Login | IAM Portal</title>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* --- GLOBAL THEME --- */
         :root {
             --bg: #050508;
             --panel: #0d0d12;
@@ -39,7 +38,6 @@
             align-items: center;
         }
 
-        /* --- NAVIGATION --- */
         .nav {
             width: 100%;
             padding: 20px 10%;
@@ -73,7 +71,6 @@
             font-weight: bold;
         }
 
-        /* --- CONTAINER & CARD --- */
         .container {
             width: 100%;
             max-width: 500px;
@@ -126,7 +123,6 @@
         .footer-links a { color: var(--muted); text-decoration: none; font-size: 13px; }
         .footer-links a:hover { color: var(--red); }
 
-        /* --- POPUPS --- */
         .popup-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -197,7 +193,6 @@
         const errorPopup = document.getElementById('error-popup');
         const submitBtn = document.getElementById('submitBtn');
 
-        // Prevent submission if locked
         loginForm.addEventListener('submit', (e) => {
             if (isLocked) {
                 e.preventDefault();
@@ -228,7 +223,6 @@
 
         function closePopup() { errorPopup.style.display = 'none'; }
 
-        // Triggered if Python sends an error back
         {% if get_flashed_messages() %}
             attempts++;
             localStorage.setItem('login_attempts', attempts);
@@ -240,10 +234,10 @@
             }
         {% endif %}
 
-        // Check on page load if they are already supposed to be locked out
         if (attempts >= 3) {
             startLockout();
         }
     </script>
 </body>
 </html>
+
