@@ -6,16 +6,13 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 
 app = Flask(__name__)
-# Change this secret key in your Render Environment Variables!
 app.secret_key = os.environ.get('SECRET_KEY', 'super-secret-dev-key')
 app.config["SESSION_COOKIE_HTTPONLY"] = True
 app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
 
-# --- DATABASE CONNECTION ---
 def get_conn():
     db_url = os.environ.get('DATABASE_URL')
     if not db_url:
-        # This will show a clearer error in the logs if the variable is missing
         print("ERROR: DATABASE_URL environment variable is not set!")
         return None
     return psycopg2.connect(db_url, cursor_factory=DictCursor)
@@ -35,17 +32,16 @@ def log_event(event_name, email, ip):
 def current_user_email():
     return session.get("user_email")
 
-# --- CORE ROUTES ---
+
 
 @app.route("/")
 def home():
-    return render_template("index.html") # This would show index.html first
+    return render_template("index.html") 
 
 @app.route("/privacy")
 def privacy():
     return render_template("privacy.html")
 
-# --- AUTHENTICATION ---
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -100,7 +96,6 @@ def login():
             flash("Invalid email or password.")
     return render_template("login.html")
 
-# --- PASSWORD RESET & SECURITY ---
 
 @app.route("/forgot_password", methods=["GET", "POST"])
 def forgot_password():
@@ -133,7 +128,6 @@ def reset_password():
         return redirect(url_for("login"))
     return render_template("reset_password.html", email=email)
 
-# --- USER PROFILE & DASHBOARD ---
 
 @app.route("/dashboard")
 def dashboard():
@@ -196,7 +190,6 @@ def profile():
     conn.close()
     return render_template("profile.html", user=user)
 
-# --- ACCOUNT DELETION ---
 
 @app.route("/delete_account", methods=["POST"])
 def delete_account():
@@ -229,6 +222,7 @@ def game():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
+
 
 
 
